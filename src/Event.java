@@ -3,27 +3,16 @@ public class Event {
     private String type;
     private double duration;
     private String description;
-    private Person customerPersom;
-    private Firm customerFirm;
+    private int customerID;
     private Facilitator facilitator;
     private String weekDay;
     private double time;
 
-    public Event(String type, double duration, String description, Person customer, Facilitator facilitator, String weekday, double time) {
+    public Event(String type, double duration, String description, int customerID, Facilitator facilitator, String weekday, double time) {
         this.type = type;
         this.duration = duration;
         this.description = description;
-        this.customerPersom = customer;
-        this.facilitator = facilitator;
-        this.weekDay = weekday;
-        this.time = time;
-    }
-
-    public Event(String type, double duration, Firm customer, Facilitator facilitator, String weekday, double time) {
-        this.type = type;
-        this.duration = duration;
-        this.description = description;
-        this.customerFirm = customer;
+        this.customerID = customerID;
         this.facilitator = facilitator;
         this.weekDay = weekday;
         this.time = time;
@@ -34,8 +23,7 @@ public class Event {
         return "Event{" +
                 "type='" + type + '\'' +
                 ", duration=" + duration +
-                ", customerPersom=" + customerPersom +
-                ", customerFirm=" + customerFirm +
+                ", customerID=" + customerID +
                 ", facilitator=" + facilitator +
                 '}';
     }
@@ -56,20 +44,8 @@ public class Event {
         this.duration = duration;
     }
 
-    public Person getCustomerPersom() {
-        return customerPersom;
-    }
-
-    public void setCustomerPersom(Person customerPersom) {
-        this.customerPersom = customerPersom;
-    }
-
-    public Firm getCustomerFirm() {
-        return customerFirm;
-    }
-
-    public void setCustomerFirm(Firm customerFirm) {
-        this.customerFirm = customerFirm;
+    public int getCustomerID() {
+        return customerID;
     }
 
     public Facilitator getFacilitator() {

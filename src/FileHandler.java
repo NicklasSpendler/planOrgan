@@ -9,6 +9,10 @@ import java.util.ArrayList;
 public class FileHandler {
 
     private ArrayList<Person> peopleList = new ArrayList<Person>();
+    private ArrayList<Event> eventList = new ArrayList<Event>();
+
+
+
     private ArrayList<Firm> firmList = new ArrayList<Firm>();
 
     public FileHandler() {
@@ -41,24 +45,6 @@ public class FileHandler {
         return tempArray;
     }
 
-    public ArrayList<Event> readEventsFromFile(){
-
-        ArrayList<Event> tempArray = new ArrayList<Event>();
-
-        try {
-            File peopleFile = new File("eventsFile.txt");
-            Scanner myReader = new Scanner(peopleFile);
-
-            while(myReader.hasNextLine()){
-
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return tempArray;
-    }
 
     // writes people from an array into a file, can be read using readPeopleFromFile();
     public void writePeopleToFile(ArrayList<Person> people){
@@ -95,10 +81,9 @@ public class FileHandler {
 
                 // Checks if the customer is firm or person
 
-                if(events.get(i).getCustomerFirm() != null){
-                    myWriter.write(events.get(i).getType() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerFirm() + " " + events.get(i).getFacilitator() + " " + events.get(i).getWeekDay() + "\n");
-                }else if(events.get(i).getCustomerPersom() != null){
-                    myWriter.write(events.get(i).getType() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerPersom() + " " + events.get(i).getFacilitator() + " " + events.get(i).getWeekDay() + "\n");
+                myWriter.write(events.get(i).getType() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerID() + " " + events.get(i).getFacilitator() + " " + events.get(i).getWeekDay());
+                if(i != events.size() - 1){
+                    myWriter.write("\n");
                 }
 
             }
@@ -116,6 +101,10 @@ public class FileHandler {
 
     public ArrayList<Firm> getFirmList(){
         return firmList;
+    }
+
+    public ArrayList<Event> getEventList() {
+        return eventList;
     }
 
     public void saveProgress(){

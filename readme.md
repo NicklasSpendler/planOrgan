@@ -21,6 +21,7 @@
 - addFacilitator(name, phoneNumber, email)
 - addEvent(type, duration, description, customer, facilitator, weekday, time)
 - getFreeCostumerid()
+- getCustomerByID(ID) // Skal tjekke både peopleList og firmList
 
 #
 ### todo interface
@@ -32,7 +33,7 @@
 #
 #### noteworhty notes
 #### - I addEvent skal customer enten være en Person eller Firm
-#### - weekday skal være entenn man, tir, tue ect. Fri, Sat og Sun retunere weekends pris
+#### - weekday skal være; man, tir, tue ect. Fri, Sat og Sun retunere weekends pris
 #
 
 ### Todo fixes

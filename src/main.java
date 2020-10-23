@@ -7,6 +7,15 @@ public class main {
     public static void main(String[] args) {
         FileHandler filehandler = new FileHandler();
 
+        Facilitator facilitator1 = new Facilitator("Jørgen", 20202020, "Jørgen.jørgesen@gmail.com");
+
+        Event event1 = new Event("Birthday", 5.5, "beskrivelse", 0, facilitator1, "fri", 8.5);
+        Event event2 = new Event("Firm Party", 3,"beskrivelse", 0, facilitator1, "mon",20);
+
+        filehandler.getEventList().add(event1);
+        filehandler.getEventList().add(event2);
+
+        filehandler.writeEventsToFile(filehandler.getEventList());
 
         //Example on how to create a new Person
 
@@ -16,7 +25,7 @@ public class main {
         filehandler.getPeopleList().add(addPerson(getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList()), "Hemming1", "Hansen", "HemmingHansen4@gayMail.com", 20202020));
          */
 
-        
+
 
         /*
         Firm firm1 = new Firm(4,"OmfgFirm", "pyskoFirm@gangstermail.com", 28583910, 29192919, "OmfgzAdresse");
@@ -24,8 +33,7 @@ public class main {
         firmList.add(firm1);
 
         Facilitator facilitator1 = new Facilitator("Jørgen", 20202020, "Jørgen.jørgesen@gmail.com");
-        Event event1 = new Event("Birthday", 5.5, "beskrivelse", peopleList.get(1), facilitator1, "fri", 8.5);
-        Event event2 = new Event("Firm Party", 3,"beskrivelse", peopleList.get(2), facilitator1, "mon",20);
+
 
         Event[] events = {event1, event2};
 
@@ -62,7 +70,7 @@ public class main {
 
         int newID = 1;
 
-        // Finds the highest value in the array and adds one to it.
+        // Finds the highest value in the array and adds one to it. Only happens if ids is populated by at least one ID.
         if(ids.size() != 0){
             newID = Collections.max(ids) + 1;
         }
@@ -70,6 +78,8 @@ public class main {
         return newID;
     }
 
+
+    // Takes an array and adds it to another array.
     public static ArrayList populateArray(ArrayList pasteInto, ArrayList copiedFrom){
 
         for (int i = 0; i <= copiedFrom.size() - 1; i++){
