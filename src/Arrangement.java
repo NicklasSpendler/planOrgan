@@ -28,9 +28,7 @@ public class Arrangement {
             // checks if the day is an weekend
             if(events[i].getWeekDay() == "fri" || events[i].getWeekDay() == "sat" || events[i].getWeekDay() == "sun"){
                 tempPrice = (events[i].getDuration() * 2) * 350;
-                System.out.println("Weekend");
             }else{ // if weekday
-                System.out.println("Weekday");
                 tempPrice = (events[i].getDuration() * 2) * 250;
             }
             System.out.println(events[i].getWeekDay());

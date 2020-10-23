@@ -11,6 +11,10 @@ public class Person {
         this.number = number;
     }
 
+    public Person() {
+
+    }
+
     public String toString() {
         return "Person{" +
                 "firstName='" + firstName + '\'' +
