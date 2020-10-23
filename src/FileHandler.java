@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class FileHandler {
 
+    private ArrayList<Person> peopleList = new ArrayList<Person>();
+    private ArrayList<Firm> firmList = new ArrayList<Firm>();
+
     public FileHandler() {
 
     }
@@ -22,12 +25,32 @@ public class FileHandler {
             Scanner myReader = new Scanner(peopleFile);
 
             while(myReader.hasNextLine()){
+                int costumerId = myReader.nextInt();
                 String firstName = myReader.next();
                 String lastName = myReader.next();
                 String email = myReader.next();
                 int phoneNumber = myReader.nextInt();
-                Person tempPerson = new Person(firstName, lastName, email, phoneNumber);
+                Person tempPerson = new Person(costumerId, firstName, lastName, email, phoneNumber);
                 tempArray.add(tempPerson);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return tempArray;
+    }
+
+    public ArrayList<Event> readEventsFromFile(){
+
+        ArrayList<Event> tempArray = new ArrayList<Event>();
+
+        try {
+            File peopleFile = new File("eventsFile.txt");
+            Scanner myReader = new Scanner(peopleFile);
+
+            while(myReader.hasNextLine()){
+
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -46,7 +69,10 @@ public class FileHandler {
         try {
             FileWriter myWriter = new FileWriter("peopleData.txt", true);
             for(int i = 0; i <= people.size() - 1; i++){
-                myWriter.write(people.get(i).getFirstName() + " " + people.get(i).getLastName() + " " + people.get(i).getMail() + " " + people.get(i).getNumber() + "\n");
+                myWriter.write(people.get(i).getCostumerId() + " " + people.get(i).getFirstName() + " " + people.get(i).getLastName() + " " + people.get(i).getMail() + " " + people.get(i).getNumber());
+                if(i != people.size() - 1){
+                    myWriter.write("\n");
+                }
             }
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
@@ -57,6 +83,7 @@ public class FileHandler {
     }
 
 
+    // same as write people to file
     public void writeEventsToFile(ArrayList<Event> events){
 
         File eventsFile = new File("eventsFile.txt");
@@ -83,5 +110,16 @@ public class FileHandler {
         }
     }
 
+    public ArrayList<Person> getPeopleList() {
+        return peopleList;
+    }
+
+    public ArrayList<Firm> getFirmList(){
+        return firmList;
+    }
+
+    public void saveProgress(){
+        writePeopleToFile(getPeopleList());
+    }
 
 }

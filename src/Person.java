@@ -1,10 +1,12 @@
 public class Person {
+    private int costumerId;
     private String firstName;
     private String lastName;
     private String mail;
     private int number;
 
-    public Person(String firstName, String lastName, String mail, int number) {
+    public Person(int costumerId, String firstName, String lastName, String mail, int number) {
+        this.costumerId = costumerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
@@ -15,6 +17,8 @@ public class Person {
 
     }
 
+
+
     public String toString() {
         return "Person{" +
                 "firstName='" + firstName + '\'' +
@@ -22,6 +26,13 @@ public class Person {
                 ", mail='" + mail + '\'' +
                 ", number=" + number +
                 '}';
+    }
+    public int getCostumerId() {
+        return costumerId;
+    }
+
+    public void setCostumerId(int costumerId) {
+        this.costumerId = costumerId;
     }
 
     public String getFirstName() {

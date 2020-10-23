@@ -2,25 +2,31 @@ public class Event {
 
     private String type;
     private double duration;
+    private String description;
     private Person customerPersom;
     private Firm customerFirm;
     private Facilitator facilitator;
     private String weekDay;
+    private double time;
 
-    public Event(String type, double duration, Person customer, Facilitator facilitator, String weekday) {
+    public Event(String type, double duration, String description, Person customer, Facilitator facilitator, String weekday, double time) {
         this.type = type;
         this.duration = duration;
+        this.description = description;
         this.customerPersom = customer;
         this.facilitator = facilitator;
         this.weekDay = weekday;
+        this.time = time;
     }
 
-    public Event(String type, double duration, Firm customer, Facilitator facilitator, String weekday) {
+    public Event(String type, double duration, Firm customer, Facilitator facilitator, String weekday, double time) {
         this.type = type;
         this.duration = duration;
+        this.description = description;
         this.customerFirm = customer;
         this.facilitator = facilitator;
         this.weekDay = weekday;
+        this.time = time;
     }
 
     @Override

@@ -8,16 +8,15 @@ public class Arrangement {
     private String date;
     private Event[] events;
 
-    public Arrangement(Firm firm, Person contact, String date, Event[] events) {
+    // need if the costumer is an private person
+    public Arrangement(Firm firm, String date, Event[] events) {
         this.firm = firm;
-        this.contact = contact;
         this.date = date;
         this.events = events;
     }
 
-    public Arrangement(Firm firm, Person contact, String date) {
+    public Arrangement(Firm firm, String date) {
         this.firm = firm;
-        this.contact = contact;
         this.date = date;
     }
 
