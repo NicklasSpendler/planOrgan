@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Arrangement {
@@ -18,6 +19,11 @@ public class Arrangement {
         this.firm = firm;
         this.contact = contact;
         this.date = date;
+    }
+
+    // An method that takes an arrayList<Event> as parameter to populate its Events array
+    public void populateEvents(){
+
     }
 
     public double getPrice(){

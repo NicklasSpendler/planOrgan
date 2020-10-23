@@ -1,0 +1,2 @@
+Birthday 5.5 Person{firstName='Henning2', lastName='Hansen1', mail='Hemming.Hansen@gmail.com3', number=29201049} Facilitator{name='Jørgen', phoneNumber=20202020, email='Jørgen.jørgesen@gmail.com'} fri
+Firm Party 3.0 Person{firstName='Henning3', lastName='Hansen2', mail='Hemming.Hansen@gmail.com2', number=29201049} Facilitator{name='Jørgen', phoneNumber=20202020, email='Jørgen.jørgesen@gmail.com'} mon
