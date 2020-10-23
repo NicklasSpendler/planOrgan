@@ -12,7 +12,7 @@
 - populateArray(pasteInto, copiedFrom)
 - filehandler.writePeopleToFile(ArrayList) // Skriver array ud i fil
 - filehandler.readPeopleFromFile() // Retunere array med personer fra filen
-- getPrice()
+- Arrengement.getPrice() // giver udregnet beløb
 - addPerson(id, firstName, lastName, email, number)
 
 #
