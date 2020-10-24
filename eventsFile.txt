@@ -1,2 +1,2 @@
-Birthday 5.5 0 Facilitator{name='Jørgen', phoneNumber=20202020, email='Jørgen.jørgesen@gmail.com'} fri
-Firm Party 3.0 0 Facilitator{name='Jørgen', phoneNumber=20202020, email='Jørgen.jørgesen@gmail.com'} mon
+Birthday beskrivelse 5.5 0 1 fri 8.5
+Firm_Party beskrivelse 3.0 0 1 mon 20.0

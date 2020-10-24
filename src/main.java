@@ -7,22 +7,26 @@ public class main {
     public static void main(String[] args) {
         FileHandler filehandler = new FileHandler();
 
-        Facilitator facilitator1 = new Facilitator("Jørgen", 20202020, "Jørgen.jørgesen@gmail.com");
+        Facilitator facilitator1 = new Facilitator(1,"Jørgen", 20202020, "Jørgen.jørgesen@gmail.com");
 
         Event event1 = new Event("Birthday", 5.5, "beskrivelse", 0, facilitator1, "fri", 8.5);
-        Event event2 = new Event("Firm Party", 3,"beskrivelse", 0, facilitator1, "mon",20);
 
-        filehandler.getEventList().add(event1);
-        filehandler.getEventList().add(event2);
+
+        filehandler.getEventList().add(addEvent("Birthday", 5.5, "beskrivelse", 0, facilitator1, "fri", 8.5));
+        filehandler.getEventList().add(addEvent("Firm_Party", 3,"beskrivelse", 0, facilitator1, "mon",20));
+
 
         filehandler.writeEventsToFile(filehandler.getEventList());
 
-        //Example on how to create a new Person
 
         /*
+        //Example no how to create a new Event
+        filehandler.getEventList().add(addEvent("Birthday", 5.5, "beskrivelse", 0, facilitator1, "fri", 8.5));
+
+
+        //Example on how to create a new Person
         filehandler.getPeopleList().add(addPerson(getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList()), "Hemming4", "Hansen", "HemmingHansen4@gayMail.com", 20202020));
-        filehandler.getPeopleList().add(addPerson(getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList()), "Hemming2", "Hansen", "HemmingHansen4@gayMail.com", 20202020));
-        filehandler.getPeopleList().add(addPerson(getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList()), "Hemming1", "Hansen", "HemmingHansen4@gayMail.com", 20202020));
+
          */
 
 
@@ -42,11 +46,22 @@ public class main {
     }
 
     public static Person addPerson(int costumerID, String firstName, String lastName, String email, int number){
-
         //creates an new person object
         Person tempPerson = new Person(costumerID, firstName, lastName, email, number);
 
         return tempPerson;
+    }
+
+    public static Event addEvent(String type, double duration, String description, int customerID, Facilitator facilitator, String weekday, double time){
+        //creates an new event object
+
+        Event tempEvent = new Event(type, duration, description, customerID, facilitator, weekday, time);
+
+        return tempEvent;
+    }
+
+    public static int getFreeFacilitatorId(){
+        return 1;
     }
 
     // Get a unused ComputerID by finding the highest ID out of all costumer ID's

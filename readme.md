@@ -13,15 +13,16 @@
 - filehandler.writePeopleToFile(ArrayList) // Skriver array ud i fil
 - filehandler.readPeopleFromFile() // Retunere array med personer fra filen
 - Arrengement.getPrice() // giver udregnet beløb
-- addPerson(id, firstName, lastName, email, number)
+- addPerson(customerID ,firstName, lastName, mail, number)
 
 #
 ### todo
-- addPerson(firstName, lastName, mail, number)
+
 - addFacilitator(name, phoneNumber, email)
 - addEvent(type, duration, description, customer, facilitator, weekday, time)
 - getFreeCostumerid()
 - getCustomerByID(ID) // Skal tjekke både peopleList og firmList
+- getFreeCostumerID()
 
 #
 ### todo interface

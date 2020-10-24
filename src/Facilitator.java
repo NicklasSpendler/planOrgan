@@ -2,8 +2,10 @@ public class Facilitator {
     private String name;
     private int phoneNumber;
     private String email;
+    private int facilitatorID;
 
-    public Facilitator(String name, int phoneNumber, String email) {
+    public Facilitator(int facilitatorID,String name, int phoneNumber, String email) {
+        this.facilitatorID = facilitatorID;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -39,6 +41,10 @@ public class Facilitator {
 
     public String getName() {
         return name;
+    }
+
+    public int getID(){
+        return facilitatorID;
     }
 }
 

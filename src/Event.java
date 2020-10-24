@@ -63,4 +63,21 @@ public class Event {
     public void setWeekDay(String weekDay) {
         this.weekDay = weekDay;
     }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    // Kunne godt lave noget validering så at den giver description med '_' istedet for spaces
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
