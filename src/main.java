@@ -7,20 +7,30 @@ public class main {
     public static void main(String[] args) {
         FileHandler filehandler = new FileHandler();
 
+        populateArray(filehandler.getPeopleList(), filehandler.readPeopleFromFile());
+
+
         Facilitator facilitator1 = new Facilitator(1,"Jørgen", 20202020, "Jørgen.jørgesen@gmail.com");
 
-        Event event1 = new Event("Birthday", 5.5, "beskrivelse", 0, facilitator1, "fri", 8.5);
+        filehandler.getFacilitatorList().add(facilitator1);
 
 
-        filehandler.getEventList().add(addEvent("Birthday", 5.5, "beskrivelse", 0, facilitator1, "fri", 8.5));
-        filehandler.getEventList().add(addEvent("Firm_Party", 3,"beskrivelse", 0, facilitator1, "mon",20));
+        Event event1 = new Event("Birthday", 5.5, "beskrivelse", 0, 1, "fri", 8.5);
+
+
+        filehandler.getEventList().add(addEvent("Birthday", 5.5, "beskrivelse", 0, 1, "fri", 8.5));
+        filehandler.getEventList().add(addEvent("Firm_Party", 3,"beskrivelse", 0, 1, "mon",20));
 
 
         filehandler.writeEventsToFile(filehandler.getEventList());
 
+        // Example on how to get customer by ID
+        //System.out.println(filehandler.getCustomerByID(1));
+
+        System.out.println(filehandler.getFacilitatorByID(1));
 
         /*
-        //Example no how to create a new Event
+        //Example on how to create a new Event
         filehandler.getEventList().add(addEvent("Birthday", 5.5, "beskrivelse", 0, facilitator1, "fri", 8.5));
 
 
@@ -52,15 +62,19 @@ public class main {
         return tempPerson;
     }
 
-    public static Event addEvent(String type, double duration, String description, int customerID, Facilitator facilitator, String weekday, double time){
+    public static Event addEvent(String type, double duration, String description, int customerID, int facilitatorID, String weekday, double time){
         //creates an new event object
 
-        Event tempEvent = new Event(type, duration, description, customerID, facilitator, weekday, time);
+        Event tempEvent = new Event(type, duration, description, customerID, facilitatorID, weekday, time);
 
         return tempEvent;
     }
 
+
+    // Skal have lavet denne metode
     public static int getFreeFacilitatorId(){
+
+
         return 1;
     }
 
@@ -92,7 +106,6 @@ public class main {
 
         return newID;
     }
-
 
     // Takes an array and adds it to another array.
     public static ArrayList populateArray(ArrayList pasteInto, ArrayList copiedFrom){

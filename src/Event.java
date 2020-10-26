@@ -1,22 +1,23 @@
 public class Event {
 
-    private String type;
+    private int id;    private String type;
     private double duration;
     private String description;
     private int customerID;
-    private Facilitator facilitator;
+    private int facilitatorID;
     private String weekDay;
     private double time;
 
-    public Event(String type, double duration, String description, int customerID, Facilitator facilitator, String weekday, double time) {
+    public Event(String type, double duration, String description, int customerID, int facilitatorID, String weekday, double time) {
         this.type = type;
         this.duration = duration;
         this.description = description;
         this.customerID = customerID;
-        this.facilitator = facilitator;
+        this.facilitatorID = facilitatorID;
         this.weekDay = weekday;
         this.time = time;
     }
+
 
     @Override
     public String toString() {
@@ -24,9 +25,10 @@ public class Event {
                 "type='" + type + '\'' +
                 ", duration=" + duration +
                 ", customerID=" + customerID +
-                ", facilitator=" + facilitator +
+                ", facilitator=" + facilitatorID +
                 '}';
     }
+
 
     public String getType() {
         return type;
@@ -48,12 +50,12 @@ public class Event {
         return customerID;
     }
 
-    public Facilitator getFacilitator() {
-        return facilitator;
+    public int getId() {
+        return id;
     }
 
-    public void setFacilitator(Facilitator facilitator) {
-        this.facilitator = facilitator;
+    public int getFacilitatorID() {
+        return facilitatorID;
     }
 
     public String getWeekDay() {

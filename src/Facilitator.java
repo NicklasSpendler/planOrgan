@@ -19,6 +19,10 @@ public class Facilitator {
                 '}';
     }
 
+    public int getFacilitatorID() {
+        return facilitatorID;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

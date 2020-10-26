@@ -1,9 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class FileHandler {
@@ -13,12 +13,12 @@ public class FileHandler {
 
     private ArrayList<Facilitator> facilitatorList = new ArrayList<Facilitator>();
 
-
     private ArrayList<Firm> firmList = new ArrayList<Firm>();
 
     public FileHandler() {
 
     }
+
 
     public ArrayList<Event> readEventsFromFile(){
         ArrayList<Event> tempArray = new ArrayList<Event>();
@@ -29,13 +29,13 @@ public class FileHandler {
 
             while(myReader.hasNextLine()){
                 String type = myReader.next();
-                double duration = myReader.nextDouble();
                 String description = myReader.next();
+                double duration = myReader.nextDouble();
                 int customerID = myReader.nextInt();
                 int facilitatorID = myReader.nextInt();
                 String weekday = myReader.next();
                 double time = myReader.nextDouble();
-                Event tempEvent = new Event(type, duration, description, getCustomerByID(customerID), getFacilitatorByID(facilitatorID), weekday, time);
+                Event tempEvent = new Event(type, duration, description, customerID, facilitatorID, weekday, time);
                 tempArray.add(tempEvent);
             }
             myReader.close();
@@ -106,7 +106,7 @@ public class FileHandler {
             FileWriter myWriter = new FileWriter("eventsFile.txt", true);
             for(int i = 0; i <= events.size() - 1; i++){
 
-                myWriter.write(events.get(i).getType() + " " + events.get(i).getDescription() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerID() + " " + events.get(i).getFacilitator().getID() + " " + events.get(i).getWeekDay() + " " + events.get(i).getTime());
+                myWriter.write(events.get(i).getType() + " " + events.get(i).getDescription() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerID() + " " + events.get(i).getFacilitatorID() + " " + events.get(i).getWeekDay() + " " + events.get(i).getTime());
                 if(i != events.size() - 1){
                     myWriter.write("\n");
                 }
@@ -118,6 +118,39 @@ public class FileHandler {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+
+    public Object getCustomerByID(int id){
+        for (int i = 0; i <= peopleList.size() -1; i++){
+
+            if(peopleList.get(i).getCostumerId() == id){
+                return peopleList.get(i);
+            }
+        }
+        for(int i = 0; i <= firmList.size() - 1; i++){
+            if(firmList.get(i).getCostumerId() == id){
+                return firmList.get(i);
+            }
+        }
+        return null;
+    }
+
+
+
+    public Facilitator getFacilitatorByID(int id){
+        for(int i = 0; i <= facilitatorList.size() -1; i++){
+            if(facilitatorList.get(i).getID() == id){
+                return facilitatorList.get(i);
+            }
+        }
+        return null;
+    }
+
+
+
+    public ArrayList<Facilitator> getFacilitatorList() {
+        return facilitatorList;
     }
 
     public ArrayList<Person> getPeopleList() {
@@ -135,6 +168,5 @@ public class FileHandler {
     public void saveProgress(){
         writePeopleToFile(getPeopleList());
     }
-
 
 }
