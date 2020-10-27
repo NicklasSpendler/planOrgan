@@ -19,6 +19,7 @@ public class Firm {
     @Override
     public String toString() {
         return "Firm{" +
+                "ID: '" + costumerId + '\'' +
                 "name='" + name + '\'' +
                 ", CVR=" + CVR +
                 ", phoneNumber=" + phoneNumber +

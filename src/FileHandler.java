@@ -10,9 +10,7 @@ public class FileHandler {
 
     private ArrayList<Person> peopleList = new ArrayList<Person>();
     private ArrayList<Event> eventList = new ArrayList<Event>();
-
     private ArrayList<Facilitator> facilitatorList = new ArrayList<Facilitator>();
-
     private ArrayList<Firm> firmList = new ArrayList<Firm>();
 
     public FileHandler() {
@@ -70,6 +68,58 @@ public class FileHandler {
         }
 
         return tempArray;
+    }
+
+    // Reads file from firm
+    public ArrayList<Firm> readFirmFromFile(){
+
+        ArrayList<Firm> firmArray = new ArrayList<Firm>();
+
+        try {
+            File firmFile = new File("firmData.txt");
+            Scanner myReader = new Scanner(firmFile);
+
+            while(myReader.hasNextLine()){
+                int costumerId = myReader.nextInt();
+                String name = myReader.next();
+                String email = myReader.next();
+                int CVR = myReader.nextInt();
+                int phoneNumber = myReader.nextInt();
+                String adresse = myReader.next();
+                Firm newFirm = new Firm(costumerId, name, email, CVR, phoneNumber, adresse);
+                firmArray.add(newFirm);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return firmArray;
+
+    }
+
+    public ArrayList<Facilitator> readFacilitatorFromFile(){
+
+        ArrayList<Facilitator> readFacilitator = new ArrayList<Facilitator>();
+
+        try {
+            File facilitatorFile = new File("facilitatorData.txt");
+            Scanner myReader = new Scanner(facilitatorFile);
+
+            while (myReader.hasNextLine()){
+                int facilitatorID = myReader.nextInt();
+                String name = myReader.next();
+                int phonenumber = myReader.nextInt();
+                String email = myReader.next();
+                Facilitator newFacilitator = new Facilitator (facilitatorID, name, phonenumber, email);
+                readFacilitator.add(newFacilitator);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return readFacilitator;
     }
 
 
@@ -136,6 +186,49 @@ public class FileHandler {
             }
         }
         return null;
+    }
+
+    // same as write people to file
+    public void writeFirmToFile(ArrayList<Firm> firm){
+        File firmFile = new File("firmData.txt");
+        firmFile.delete();
+
+        try {
+            FileWriter myWriter = new FileWriter("firmData.txt", true);
+            for (int i = 0; i <= firm.size() - 1; i++){
+
+                myWriter.write(firm.get(i).getCostumerId() + " " + firm.get(i).getName() + " " + firm.get(i).getEmail() + " " + firm.get(i).getCVR() + " " + firm.get(i).getPhoneNumber() + " " + firm.get(i).getAdresse());
+                if (i != firm.size() - 1) {
+                    myWriter.write("\n");
+                }
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote firm to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+    // same as write people to file
+    public void writeFacilitatorToFile(ArrayList<Facilitator> facilitator){
+        File facilitatorFile = new File("facilitatorData.txt");
+        facilitatorFile.delete();
+
+        try {
+            FileWriter myWriter = new FileWriter("facilitatorData.txt");
+            for (int i = 0; i <= facilitator.size() - 1; i++){
+                myWriter.write(facilitator.get(i).getFacilitatorID() + " " + facilitator.get(i).getName() + " " + facilitator.get(i).getPhoneNumber() + " " + facilitator.get(i).getEmail());
+                if (i != facilitator.size() - 1){
+                    myWriter.write("\n");
+
+                }
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote facilitator to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred");
+            e.printStackTrace();
+        }
     }
 
 

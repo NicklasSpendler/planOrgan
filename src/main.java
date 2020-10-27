@@ -1,33 +1,21 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class main {
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
         FileHandler filehandler = new FileHandler();
 
         populateArray(filehandler.getPeopleList(), filehandler.readPeopleFromFile());
 
-
-        Facilitator facilitator1 = new Facilitator(1,"Jørgen", 20202020, "Jørgen.jørgesen@gmail.com");
-
-        filehandler.getFacilitatorList().add(facilitator1);
-
-
-        Event event1 = new Event("Birthday", 5.5, "beskrivelse", 0, 1, "fri", 8.5);
-
-
-        filehandler.getEventList().add(addEvent("Birthday", 5.5, "beskrivelse", 0, 1, "fri", 8.5));
-        filehandler.getEventList().add(addEvent("Firm_Party", 3,"beskrivelse", 0, 1, "mon",20));
-
-
-        filehandler.writeEventsToFile(filehandler.getEventList());
+        mainMenu(input);
 
         // Example on how to get customer by ID
         //System.out.println(filehandler.getCustomerByID(1));
-
-        System.out.println(filehandler.getFacilitatorByID(1));
 
         /*
         //Example on how to create a new Event
@@ -38,21 +26,58 @@ public class main {
         filehandler.getPeopleList().add(addPerson(getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList()), "Hemming4", "Hansen", "HemmingHansen4@gayMail.com", 20202020));
 
          */
+    }
 
+    public static void mainMenu(Scanner input){
+        System.out.println("====== Main Menu ======");
+        System.out.println("A: Add functions");
+        System.out.println("S: Show Data");
+        System.out.println("D: Delete functions");
+        System.out.println("?: Help");
+        System.out.println("=======================");
 
+        String option = input.nextLine();
 
-        /*
-        Firm firm1 = new Firm(4,"OmfgFirm", "pyskoFirm@gangstermail.com", 28583910, 29192919, "OmfgzAdresse");
+        if(option.toLowerCase().contains("a")){
+            addFunctions(input);
+        }
+    }
 
-        firmList.add(firm1);
+    public static void addFunctions(Scanner input){
+        System.out.println("========= Add =========");
+        System.out.println("P: Person");
+        System.out.println("F: Firm");
+        System.out.println("E: Event");
+        System.out.println("A: Arrengement");
+        System.out.println("I: Facilitator");
 
-        Facilitator facilitator1 = new Facilitator("Jørgen", 20202020, "Jørgen.jørgesen@gmail.com");
+        String option = input.nextLine();
+    }
 
+    public static void interfaceAddPerson(){
+        System.out.println("=====Add new Person====");
+        System.out.println("give firstName");
+    }
 
-        Event[] events = {event1, event2};
+    public static Person newPersonScanner()   {
+        FileHandler filehandler = new FileHandler();
+        Scanner scan = new Scanner(System.in);
+        int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
 
-        Arrangement arrangement1 = new Arrangement(firm1, "05/11/2020", events);
-         */
+        System.out.println("Enter your firstname: ");
+        String firstName = scan.next();
+
+        System.out.println("Enter your lastname: ");
+        String lastName = scan.next();
+
+        System.out.println("Enter your contact mail: ");
+        String mail = scan.next();
+
+        System.out.println("Enter your phonenumber: ");
+        int phoneNumber = scan.nextInt();
+
+        return addPerson(cosID, firstName, lastName, mail, phoneNumber);
+
     }
 
     public static Person addPerson(int costumerID, String firstName, String lastName, String email, int number){
@@ -64,7 +89,6 @@ public class main {
 
     public static Event addEvent(String type, double duration, String description, int customerID, int facilitatorID, String weekday, double time){
         //creates an new event object
-
         Event tempEvent = new Event(type, duration, description, customerID, facilitatorID, weekday, time);
 
         return tempEvent;
