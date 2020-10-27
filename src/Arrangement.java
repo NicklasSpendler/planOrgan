@@ -1,16 +1,23 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Arrangement {
 
     private Firm firm;
-    private Person contact;
+    private privateCustomer privateCustomer;
     private String date;
     private Event[] events;
 
     // need if the costumer is an private person
     public Arrangement(Firm firm, String date, Event[] events) {
         this.firm = firm;
+        this.date = date;
+        this.events = events;
+    }
+
+
+
+    public Arrangement(privateCustomer customer, String date, Event[] events) {
+        this.privateCustomer = customer;
         this.date = date;
         this.events = events;
     }
@@ -42,11 +49,12 @@ public class Arrangement {
     }
 
 
+    // Needs an condictional if the arrangement has an private customer or firm
     @Override
     public String toString() {
         return "Arrangement{" +
                 "firm=" + firm +
-                ", contact=" + contact +
+                ", person=" + privateCustomer +
                 ", date='" + date + '\'' +
                 ", events=" + Arrays.toString(events) +
                 '}';
@@ -60,12 +68,12 @@ public class Arrangement {
         this.firm = firm;
     }
 
-    public Person getContact() {
-        return contact;
+    public privateCustomer getContact() {
+        return privateCustomer;
     }
 
-    public void setContact(Person contact) {
-        this.contact = contact;
+    public void setContact(privateCustomer privateCustomer) {
+        this.privateCustomer = privateCustomer;
     }
 
     public String getDate() {
@@ -78,6 +86,14 @@ public class Arrangement {
 
     public Event[] getEvents() {
         return events;
+    }
+
+    public privateCustomer getPrivateCustomer() {
+        return privateCustomer;
+    }
+
+    public void setPrivateCustomer(privateCustomer privateCustomer) {
+        this.privateCustomer = privateCustomer;
     }
 
     public void setEvents(Event[] events) {

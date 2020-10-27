@@ -1,11 +1,11 @@
-# planOrgan
+__# planOrgan
 
 ## classes
 - Event
 - Facilitator
 - FileHandler
 - Firm
-- Person
+- privateCustomer
 - Arrangement
 #
 ## Methods
@@ -33,15 +33,15 @@
 
 #
 #### noteworhty notes
-#### - I addEvent skal customer enten være en Person eller Firm
+#### - I addEvent skal customer enten være en privateCustomer eller Firm
 #### - weekday skal være; man, tir, tue ect. Fri, Sat og Sun retunere weekends pris
 #
 
 ### Todo fixes
 Arrangement.java
-- Skal lave constuctor til hvis costumer er privat person
+- Skal lave constuctor til hvis costumer er privat privateCustomer
 #
 # todo opgaver
-- Lav interface som kan add Person med addPerson() som der efter tilføjer den nye person ind i arrayet peopleList (Brug peopleList.add(addPeson(parameters)))
+- Lav interface som kan add privateCustomer med addPerson() som der efter tilføjer den nye privateCustomer ind i arrayet peopleList (Brug peopleList.add(addPeson(parameters)))
 
-- lav interface som kan delete person, en metode kunne eksempelvis være deletePerson(1), denne metode vil tage fat i filehandler.getPeopleList, treverse arrayet ind til den finder den person med den ID. Hvad end den index i arryet er skal fjernes fra arryet med filehandler.getPeopleList.remove(index)
+- lav interface som kan delete privateCustomer, en metode kunne eksempelvis være deletePerson(1), denne metode vil tage fat i filehandler.getPeopleList, treverse arrayet ind til den finder den privateCustomer med den ID. Hvad end den index i arryet er skal fjernes fra arryet med filehandler.getPeopleList.remove(index)

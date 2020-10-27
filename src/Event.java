@@ -1,6 +1,7 @@
 public class Event {
 
-    private int id;    private String type;
+    private int id;
+    private String type;
     private double duration;
     private String description;
     private int customerID;
@@ -8,7 +9,8 @@ public class Event {
     private String weekDay;
     private double time;
 
-    public Event(String type, double duration, String description, int customerID, int facilitatorID, String weekday, double time) {
+    public Event(int id, String type, double duration, String description, int customerID, int facilitatorID, String weekday, double time) {
+        this.id = id;
         this.type = type;
         this.duration = duration;
         this.description = description;
@@ -18,17 +20,19 @@ public class Event {
         this.time = time;
     }
 
-
     @Override
     public String toString() {
         return "Event{" +
-                "type='" + type + '\'' +
+                "id=" + id +
+                ", type='" + type + '\'' +
                 ", duration=" + duration +
+                ", description='" + description + '\'' +
                 ", customerID=" + customerID +
-                ", facilitator=" + facilitatorID +
+                ", facilitatorID=" + facilitatorID +
+                ", weekDay='" + weekDay + '\'' +
+                ", time=" + time +
                 '}';
     }
-
 
     public String getType() {
         return type;
@@ -50,7 +54,7 @@ public class Event {
         return customerID;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 

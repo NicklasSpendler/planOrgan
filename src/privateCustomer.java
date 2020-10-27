@@ -1,19 +1,19 @@
-public class Person {
+public class privateCustomer {
     private int costumerId;
     private String firstName;
     private String lastName;
-    private String mail;
+    private String email;
     private int number;
 
-    public Person(int costumerId, String firstName, String lastName, String mail, int number) {
+    public privateCustomer(int costumerId, String firstName, String lastName, String email, int number) {
         this.costumerId = costumerId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mail = mail;
+        this.email = email;
         this.number = number;
     }
 
-    public Person() {
+    public privateCustomer() {
 
     }
 
@@ -23,7 +23,7 @@ public class Person {
         return "Person{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", mail='" + mail + '\'' +
+                ", mail='" + email + '\'' +
                 ", number=" + number +
                 '}';
     }
@@ -51,12 +51,12 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String mail) {
+        this.email = mail;
     }
 
     public int getNumber() {

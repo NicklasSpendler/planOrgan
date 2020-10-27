@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class FileHandler {
 
-    private ArrayList<Person> peopleList = new ArrayList<Person>();
+    private ArrayList<privateCustomer> peopleList = new ArrayList<privateCustomer>();
     private ArrayList<Event> eventList = new ArrayList<Event>();
     private ArrayList<Facilitator> facilitatorList = new ArrayList<Facilitator>();
     private ArrayList<Firm> firmList = new ArrayList<Firm>();
@@ -26,6 +26,7 @@ public class FileHandler {
             Scanner myReader = new Scanner(peopleFile);
             // reads lines from file
             while(myReader.hasNextLine()){
+                int id = myReader.nextInt();
                 String type = myReader.next();
                 String description = myReader.next();
                 double duration = myReader.nextDouble();
@@ -33,7 +34,7 @@ public class FileHandler {
                 int facilitatorID = myReader.nextInt();
                 String weekday = myReader.next();
                 double time = myReader.nextDouble();
-                Event tempEvent = new Event(type, duration, description, customerID, facilitatorID, weekday, time);
+                Event tempEvent = new Event(id ,type, duration, description, customerID, facilitatorID, weekday, time);
                 tempArray.add(tempEvent);
             }
             myReader.close();
@@ -45,9 +46,9 @@ public class FileHandler {
     }
 
     // Reads file, expected to have people in it.
-    public ArrayList<Person> readPeopleFromFile(){
+    public ArrayList<privateCustomer> readPeopleFromFile(){
 
-        ArrayList<Person> tempArray = new ArrayList<Person>();
+        ArrayList<privateCustomer> tempArray = new ArrayList<privateCustomer>();
 
         try {
             File peopleFile = new File("peopleData.txt");
@@ -59,8 +60,8 @@ public class FileHandler {
                 String lastName = myReader.next();
                 String email = myReader.next();
                 int phoneNumber = myReader.nextInt();
-                Person tempPerson = new Person(costumerId, firstName, lastName, email, phoneNumber);
-                tempArray.add(tempPerson);
+                privateCustomer tempPrivateCustomer = new privateCustomer(costumerId, firstName, lastName, email, phoneNumber);
+                tempArray.add(tempPrivateCustomer);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -124,7 +125,7 @@ public class FileHandler {
 
 
     // writes people from an array into a file, can be read using readPeopleFromFile();
-    public void writePeopleToFile(ArrayList<Person> people){
+    public void writePeopleToFile(ArrayList<privateCustomer> people){
 
         // deletes file if it exsists.
         File personFile = new File("peopleData.txt");
@@ -134,7 +135,7 @@ public class FileHandler {
             FileWriter myWriter = new FileWriter("peopleData.txt", true);
             for(int i = 0; i <= people.size() - 1; i++){
                 // writes variables into file in a line.
-                myWriter.write(people.get(i).getCostumerId() + " " + people.get(i).getFirstName() + " " + people.get(i).getLastName() + " " + people.get(i).getMail() + " " + people.get(i).getNumber());
+                myWriter.write(people.get(i).getCostumerId() + " " + people.get(i).getFirstName() + " " + people.get(i).getLastName() + " " + people.get(i).getEmail() + " " + people.get(i).getNumber());
                 if(i != people.size() - 1){ // If we arent on the last index of the array, make a new line.
                     myWriter.write("\n");
                 }
@@ -253,7 +254,7 @@ public class FileHandler {
         return facilitatorList;
     }
 
-    public ArrayList<Person> getPeopleList() {
+    public ArrayList<privateCustomer> getPeopleList() {
         return peopleList;
     }
 
