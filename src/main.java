@@ -85,36 +85,36 @@ public class main {
         ArrayList<Integer> ids = new ArrayList<Integer>();
 
         // Populate array with current ids
-        if(peopleList.size() > 0){
+        if(peopleList.size() > 0){ // checks if there's any indexes in the peopleList
             for (int i = 0; i <= peopleList.size() - 1; i++){
-                ids.add(peopleList.get(i).getCostumerId());
+                ids.add(peopleList.get(i).getCostumerId()); // adds the ids of the peoples in the peopleList
             }
         }
 
-        if(firmList.size() > 0){
+        if(firmList.size() > 0){// checks if there's any indexes in the firmList
             for(int k = 0; k <= firmList.size() - 1; k++){
-                ids.add(firmList.get(k).getCostumerId());
+                ids.add(firmList.get(k).getCostumerId()); // adds the ids of the firms in the firmList
             }
         }
 
-        int newID = 1;
+        int newID = 1; // initiate a new variable.
 
         // Finds the highest value in the array and adds one to it. Only happens if ids is populated by at least one ID.
-        if(ids.size() != 0){
-            newID = Collections.max(ids) + 1;
+        if(ids.size() != 0){ // if the ids Array is populated
+            newID = Collections.max(ids) + 1; // find the largest number and add one to it.
         }
 
-        return newID;
+        return newID; // return the new ID.
     }
 
     // Takes an array and adds it to another array.
     public static ArrayList populateArray(ArrayList pasteInto, ArrayList copiedFrom){
 
-        for (int i = 0; i <= copiedFrom.size() - 1; i++){
-            pasteInto.add(copiedFrom.get(i));
+        for (int i = 0; i <= copiedFrom.size() - 1; i++){ // runs through the array that's going to be copied from
+            pasteInto.add(copiedFrom.get(i)); // add the indexes into the array that's getting pasted into.
         }
 
-        return pasteInto;
+        return pasteInto; // return the pasted array;
     }
 
 }

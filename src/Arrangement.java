@@ -29,17 +29,16 @@ public class Arrangement {
         double price = 0;
 
         for (int i = 0; i <= events.length - 1; i++){
-            double tempPrice = 0;
+            double tempPrice = 0; // initiate a new variable
             // checks if the day is an weekend
-            if(events[i].getWeekDay() == "fri" || events[i].getWeekDay() == "sat" || events[i].getWeekDay() == "sun"){
-                tempPrice = (events[i].getDuration() * 2) * 350;
-            }else{ // if weekday
-                tempPrice = (events[i].getDuration() * 2) * 250;
+            if(events[i].getWeekDay() == "fri" || events[i].getWeekDay() == "sat" || events[i].getWeekDay() == "sun"){ // checks if the vents week day is either fri, sat or sunday.
+                tempPrice = (events[i].getDuration() * 2) * 350; // add the price of an weekend
+            }else{ // if not
+                tempPrice = (events[i].getDuration() * 2) * 250; // add the price of an week day
             }
-            System.out.println(events[i].getWeekDay());
-            price += tempPrice;
+            price += tempPrice; // add the price to the total pricepool
         }
-        return price;
+        return price; // return the total price pool;
     }
 
 

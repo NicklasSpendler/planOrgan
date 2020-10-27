@@ -26,7 +26,7 @@ public class FileHandler {
         try {
             File peopleFile = new File("eventsFile.txt");
             Scanner myReader = new Scanner(peopleFile);
-
+            // reads lines from file
             while(myReader.hasNextLine()){
                 String type = myReader.next();
                 String description = myReader.next();
@@ -76,19 +76,21 @@ public class FileHandler {
     // writes people from an array into a file, can be read using readPeopleFromFile();
     public void writePeopleToFile(ArrayList<Person> people){
 
+        // deletes file if it exsists.
         File personFile = new File("peopleData.txt");
         personFile.delete();
 
         try {
             FileWriter myWriter = new FileWriter("peopleData.txt", true);
             for(int i = 0; i <= people.size() - 1; i++){
+                // writes variables into file in a line.
                 myWriter.write(people.get(i).getCostumerId() + " " + people.get(i).getFirstName() + " " + people.get(i).getLastName() + " " + people.get(i).getMail() + " " + people.get(i).getNumber());
-                if(i != people.size() - 1){
+                if(i != people.size() - 1){ // If we arent on the last index of the array, make a new line.
                     myWriter.write("\n");
                 }
             }
             myWriter.close();
-            System.out.println("Successfully wrote to the file.");
+            System.out.println("Successfully wrote peoples to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -113,7 +115,7 @@ public class FileHandler {
 
             }
             myWriter.close();
-            System.out.println("Successfully wrote to the file.");
+            System.out.println("Successfully wrote events to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -121,9 +123,9 @@ public class FileHandler {
     }
 
 
+    // treverses through peopleList and firmList to find the ID that matches the paramter.
     public Object getCustomerByID(int id){
         for (int i = 0; i <= peopleList.size() -1; i++){
-
             if(peopleList.get(i).getCostumerId() == id){
                 return peopleList.get(i);
             }
@@ -137,7 +139,7 @@ public class FileHandler {
     }
 
 
-
+    // treverses through facilitators to find the one with the ID in the paramter;
     public Facilitator getFacilitatorByID(int id){
         for(int i = 0; i <= facilitatorList.size() -1; i++){
             if(facilitatorList.get(i).getID() == id){
@@ -147,8 +149,13 @@ public class FileHandler {
         return null;
     }
 
+    // Method that calls all the write to file methods. Usable for quick save.
+    public void saveProgress(){
+        writePeopleToFile(getPeopleList());
+    }
 
 
+    // Getters
     public ArrayList<Facilitator> getFacilitatorList() {
         return facilitatorList;
     }
@@ -164,9 +171,4 @@ public class FileHandler {
     public ArrayList<Event> getEventList() {
         return eventList;
     }
-
-    public void saveProgress(){
-        writePeopleToFile(getPeopleList());
-    }
-
 }
