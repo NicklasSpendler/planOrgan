@@ -197,7 +197,7 @@ public class FileHandler {
             FileWriter myWriter = new FileWriter("firmData.txt", true);
             for (int i = 0; i <= firm.size() - 1; i++){
 
-                myWriter.write(firm.get(i).getCostumerId() + " " + firm.get(i).getName() + " " + firm.get(i).getEmail() + " " + firm.get(i).getCVR() + " " + firm.get(i).getPhoneNumber() + " " + firm.get(i).getAdresse());
+                myWriter.write(firm.get(i).getCostumerId() + " " + firm.get(i).getName() + " " + firm.get(i).getEmail() + " " + firm.get(i).getCVR() + " " + firm.get(i).getPhoneNumber() + " " + firm.get(i).getAdress());
                 if (i != firm.size() - 1) {
                     myWriter.write("\n");
                 }

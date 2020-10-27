@@ -5,15 +5,15 @@ public class Firm {
     private String email;
     private int CVR;
     private int phoneNumber;
-    private String adresse;
+    private String address;
 
-    public Firm(int costumerId, String name, String email, int CVR, int phoneNumber, String adresse){
+    public Firm(int costumerId, String name, String email, int CVR, int phoneNumber, String address){
         this.costumerId = costumerId;
         this.name = name;
         this.email = email;
         this.CVR = CVR;
         this.phoneNumber = phoneNumber;
-        this.adresse = adresse;
+        this.address = address;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Firm {
                 "name='" + name + '\'' +
                 ", CVR=" + CVR +
                 ", phoneNumber=" + phoneNumber +
-                ", adresse='" + adresse + '\'' +
+                ", adresse='" + address + '\'' +
                 '}';
     }
 
@@ -67,11 +67,11 @@ public class Firm {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public String getAdress() {
+        return address;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAdress(String adresse) {
+        this.address = adresse;
     }
 }

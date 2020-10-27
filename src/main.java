@@ -53,28 +53,35 @@ public class main {
 
         String option = input.nextLine();
         if(option.toLowerCase().contains("p")){
-            newPersonScanner();
+            newPersonScanner(input);
         }
     }
 
-    public static void newPersonScanner()   {
+    public static void newPersonScanner(Scanner input)   {
         FileHandler filehandler = new FileHandler();
-        Scanner scan = new Scanner(System.in);
         int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
 
-        System.out.println("Enter your firstname: ");
-        String firstName = scan.next();
+        System.out.println("Enter costumers firstname: ");
+        String firstName = input.next();
 
-        System.out.println("Enter your lastname: ");
-        String lastName = scan.next();
+        System.out.println("Enter costumers lastname: ");
+        String lastName = input.next();
 
-        System.out.println("Enter your contact mail: ");
-        String mail = scan.next();
+        System.out.println("Enter costumers contact mail: ");
+        String mail = input.next();
 
-        System.out.println("Enter your phonenumber: ");
-        int phoneNumber = scan.nextInt();
+        System.out.println("Enter costumers phonenumber: ");
+        int phoneNumber = input.nextInt();
 
         filehandler.getPeopleList().add(addPerson(cosID, firstName, lastName, mail, phoneNumber));
+        System.out.println(firstName + " has been added with ID: " + cosID);
+        System.out.println("Would you like to create add another Person?");
+        String option = input.nextLine();
+        if(option.toLowerCase().contains("y")){
+            newPersonScanner(input);
+        }else{
+            addFunctions(input);
+        }
     }
 
     public static Person addPerson(int costumerID, String firstName, String lastName, String email, int number){
@@ -89,14 +96,6 @@ public class main {
         Event tempEvent = new Event(type, duration, description, customerID, facilitatorID, weekday, time);
 
         return tempEvent;
-    }
-
-
-    // Skal have lavet denne metode
-    public static int getFreeFacilitatorId(){
-
-
-        return 1;
     }
 
     // Get a unused ComputerID by finding the highest ID out of all costumer ID's
@@ -126,6 +125,24 @@ public class main {
         }
 
         return newID; // return the new ID.
+    }
+
+    // same as getFreeCostumerId
+    public static int getFreeFacilitatorId(ArrayList<Facilitator> facilitatorList){
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+
+        if(facilitatorList.size() > 0){
+            for(int i = 0; i <= facilitatorList.size() - 1; i++){
+                ids.add(facilitatorList.get(i).getID());
+            }
+        }
+
+        int newID = 1;
+
+        if(ids.size() != 0){
+            newID = Collections.max(ids) + 1;
+        }
+        return newID;
     }
 
     // Takes an array and adds it to another array.
