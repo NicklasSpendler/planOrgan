@@ -52,14 +52,12 @@ public class main {
         System.out.println("I: Facilitator");
 
         String option = input.nextLine();
+        if(option.toLowerCase().contains("p")){
+            newPersonScanner();
+        }
     }
 
-    public static void interfaceAddPerson(){
-        System.out.println("=====Add new Person====");
-        System.out.println("give firstName");
-    }
-
-    public static Person newPersonScanner()   {
+    public static void newPersonScanner()   {
         FileHandler filehandler = new FileHandler();
         Scanner scan = new Scanner(System.in);
         int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
@@ -76,8 +74,7 @@ public class main {
         System.out.println("Enter your phonenumber: ");
         int phoneNumber = scan.nextInt();
 
-        return addPerson(cosID, firstName, lastName, mail, phoneNumber);
-
+        filehandler.getPeopleList().add(addPerson(cosID, firstName, lastName, mail, phoneNumber));
     }
 
     public static Person addPerson(int costumerID, String firstName, String lastName, String email, int number){
