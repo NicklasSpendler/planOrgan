@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -12,12 +11,15 @@ public class main {
 
         populateArray(filehandler.getPeopleList(), filehandler.readPeopleFromFile());
 
+        filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "Fødz", 5, "Det_er_fødzdag", 1, 1, "mon", 21));
+        filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "Fødz", 5, "Det_er_fødzdag", 1, 1, "mon", 21));
+
         mainMenu(input, filehandler);
+
+
 
         ArrayList<Event> tempEventList = new ArrayList<Event>();
 
-        filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "Fødz", 5, "Det_er_fødzdag", 1, 1, "mon", 21));
-        filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "Fødz", 5, "Det_er_fødzdag", 1, 1, "mon", 21));
 
         tempEventList.add(filehandler.getEventList().get(0));
         tempEventList.add(filehandler.getEventList().get(1));
@@ -26,7 +28,9 @@ public class main {
         events.add(0);
         events.add(1);
 
-        Arrangement arrangement1 = new Arrangement(filehandler.getPeopleList().get(0), "01012020", events);
+        filehandler.getArrangementList().add(addArrangement(1 ,1, "01012020", events));
+
+        filehandler.writeArrangementToFile(filehandler.getArrangementList());
 
         //System.out.println(arrangement1);
 
@@ -42,6 +46,8 @@ public class main {
         filehandler.getPeopleList().add(addPerson(getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList()), "Hemming4", "Hansen", "HemmingHansen4@gayMail.com", 20202020));
          */
     }
+
+    // Husk at lave search funktionalitet
 
     public static void mainMenu(Scanner input, FileHandler filehandler){
 
@@ -99,6 +105,8 @@ public class main {
             showPeopleData(input, filehandler);
         } else if(option.equalsIgnoreCase("f")){
             showFirmData(input, filehandler);
+        }else if(option.equalsIgnoreCase("e")){
+            showEventData(input, filehandler);
         }
     }
 
@@ -138,6 +146,23 @@ public class main {
         }
     }
 
+    public static void showEventData(Scanner input, FileHandler filehandler) {
+        System.out.println("=Show Event=");
+        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++) {
+            System.out.println("ID: " + filehandler.getEventList().get(i).getID() + " Type: " + filehandler.getEventList().get(i).getType() + " Duration: " + filehandler.getEventList().get(i).getDuration()  + " CostumerID: " + filehandler.getEventList().get(i).getCustomerID() + " FacilitatorID: " + filehandler.getEventList().get(i).getFacilitatorID() + " Weekday: " + filehandler.getEventList().get(i).getWeekDay() + " Time: " + filehandler.getEventList().get(i).getTime()+ "\nDescription: " + filehandler.getEventList().get(i).getDescription());
+        }
+        System.out.println("D = Delete a Event, B = back");
+        String answer = input.next();
+
+        if (answer.equalsIgnoreCase("D")) {
+            System.out.println("Give the ID of the event you would like to delete: ");
+            int selectedID = input.nextInt();
+            deleteEvent(input, filehandler, selectedID);
+        } else if (answer.equalsIgnoreCase("B")) {
+            showData(input, filehandler);
+        }
+    }
+
     public static void deletePerson(Scanner input, FileHandler filehandler, int selectedID) {
             for (int i = 0; i <= filehandler.getPeopleList().size() - 1; i++){
                 System.out.println(filehandler.getPeopleList().get(i).getCustomerId());
@@ -168,6 +193,22 @@ public class main {
             }
             showFirmData(input, filehandler);
         }
+
+    public static void deleteEvent(Scanner input, FileHandler filehandler, int selectedID) {
+        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++){
+            System.out.println(filehandler.getEventList().get(i).getCustomerID());
+            if (filehandler.getEventList().get(i).getCustomerID() == selectedID) {
+                System.out.println("Are you sure? You're deleting: " + filehandler.getEventList().get(i).getCustomerID() + "\nType: " + filehandler.getEventList().get(i).getType() + "\nAnswer with: Y/N");
+                String answer = input.next();
+                if (answer.equalsIgnoreCase("y")){
+                    System.out.println("Successfully deleted: " + filehandler.getEventList().get(i).getCustomerID() + "\nType: " + filehandler.getEventList().get(i).getType());
+                    filehandler.getEventList().remove(i);
+                }
+
+            }
+        }
+        showEventData(input, filehandler);
+    }
 
     public static void newPersonScanner(Scanner input, FileHandler filehandler)   {
         int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
@@ -305,6 +346,12 @@ public class main {
         return tempEvent;
     }
 
+    public static Arrangement addArrangement(int id, int customerID, String date, ArrayList<Integer> eventIds){
+        Arrangement tempArrangement = new Arrangement(id, customerID, date, eventIds);
+
+        return tempArrangement;
+    }
+
 
 
     // skal testes
@@ -391,6 +438,23 @@ public class main {
         if(facilitatorList.size() > 0){
             for(int i = 0; i <= facilitatorList.size() - 1; i++){
                 ids.add(facilitatorList.get(i).getID());
+            }
+        }
+
+        int newID = 1;
+
+        if(ids.size() != 0){
+            newID = Collections.max(ids) + 1;
+        }
+        return newID;
+    }
+
+    public static int getFreeArrangementId(ArrayList<Arrangement> arrangementList){
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+
+        if(arrangementList.size() > 0){
+            for(int i = 0; i <= arrangementList.size() - 1; i++){
+                ids.add(arrangementList.get(i).getId());
             }
         }
 

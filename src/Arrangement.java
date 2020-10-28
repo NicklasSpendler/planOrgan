@@ -3,35 +3,17 @@ import java.util.Arrays;
 
 public class Arrangement {
 
-    private Firm firm;
-    private privateCustomer privateCustomer;
+    int id;
+    int customerID;
     private String date;
     private ArrayList<Integer> events;
 
     // need if the costumer is an private person
-    public Arrangement(Firm firm, String date, ArrayList<Integer> events) {
-        this.firm = firm;
+    public Arrangement(int id, int customerID, String date, ArrayList<Integer> events) {
+        this.id = id;
+        this.customerID = customerID;
         this.date = date;
         this.events = events;
-    }
-
-
-
-    public Arrangement(privateCustomer customer, String date, ArrayList<Integer> events) {
-        this.privateCustomer = customer;
-        this.date = date;
-        this.events = events;
-    }
-
-    public Arrangement(Firm firm, String date) {
-        this.firm = firm;
-        this.date = date;
-    }
-
-
-    // An method that takes an arrayList<Event> as parameter to populate its Events array
-    public void populateEvents(){
-
     }
 
     /*
@@ -57,28 +39,19 @@ public class Arrangement {
     @Override
     public String toString() {
         return "Arrangement{" +
-                "firm=" + firm +
-                ", privateCustomer=" + privateCustomer +
+                "id=" + id +
+                ", customerID='" + customerID + '\'' +
                 ", date='" + date + '\'' +
                 ", events=" + events +
                 '}';
     }
 
-
-    public Firm getFirm() {
-        return firm;
+    public int getId() {
+        return id;
     }
 
-    public void setFirm(Firm firm) {
-        this.firm = firm;
-    }
-
-    public privateCustomer getContact() {
-        return privateCustomer;
-    }
-
-    public void setContact(privateCustomer privateCustomer) {
-        this.privateCustomer = privateCustomer;
+    public int getCustomerID() {
+        return customerID;
     }
 
     public String getDate() {
@@ -91,14 +64,6 @@ public class Arrangement {
 
     public ArrayList<Integer> getEvents() {
         return events;
-    }
-
-    public privateCustomer getPrivateCustomer() {
-        return privateCustomer;
-    }
-
-    public void setPrivateCustomer(privateCustomer privateCustomer) {
-        this.privateCustomer = privateCustomer;
     }
 
     public void setEvents(ArrayList<Integer> events) {

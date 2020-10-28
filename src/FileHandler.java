@@ -123,6 +123,39 @@ public class FileHandler {
         return readFacilitator;
     }
 
+    public void writeArrangementToFile(ArrayList<Arrangement> arragementList){
+        // deletes file if it exsists.
+        File personFile = new File("ArragementData.txt");
+        personFile.delete();
+
+        try {
+            FileWriter myWriter = new FileWriter("ArragementData.txt", true);
+            for(int i = 0; i <= arragementList.size() - 1; i++){
+                // writes variables into file in a line.
+                String tempArray = "";
+                for(int k = 0; k <= arragementList.get(i).getEvents().size()-1; k++){
+
+                    tempArray = tempArray + arragementList.get(i).getEvents().get(k);
+
+                    if(k != arragementList.get(i).getEvents().size () -1){
+
+                        tempArray = tempArray + ",";
+
+                    }
+                }
+                String eventList;
+                myWriter.write(arragementList.get(i).getId() + " " + arragementList.get(i).getCustomerID() + " " + arragementList.get(i).getDate() + " " + tempArray);
+                if(i != arragementList.size() - 1){ // If we arent on the last index of the array, make a new line.
+                    myWriter.write("\n");
+                }
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote Arrangement to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 
     // writes people from an array into a file, can be read using readPeopleFromFile();
     public void writePeopleToFile(ArrayList<privateCustomer> people){
@@ -269,5 +302,9 @@ public class FileHandler {
 
     public ArrayList<Event> getEventList() {
         return eventList;
+    }
+
+    public ArrayList<Arrangement> getArrangementList() {
+        return arrangementList;
     }
 }
