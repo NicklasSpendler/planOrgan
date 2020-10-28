@@ -16,23 +16,18 @@ public class Firm {
         this.address = address;
     }
 
+
+
     @Override
     public String toString() {
         return "Firm{" +
-                "ID: '" + customerId + '\'' +
-                "name='" + name + '\'' +
+                "customerId=" + customerId +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", CVR=" + CVR +
                 ", phoneNumber=" + phoneNumber +
-                ", adresse='" + address + '\'' +
+                ", address='" + address + '\'' +
                 '}';
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
     }
 
     public String getEmail() {
@@ -71,7 +66,16 @@ public class Firm {
         return address;
     }
 
-    public void setAdress(String adresse) {
+    public void setAddress(String adresse) {
         this.address = adresse;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+
+    public String getAddress() {
+        return address;
     }
 }

@@ -12,6 +12,7 @@ public class FileHandler {
     private ArrayList<Event> eventList = new ArrayList<Event>();
     private ArrayList<Facilitator> facilitatorList = new ArrayList<Facilitator>();
     private ArrayList<Firm> firmList = new ArrayList<Firm>();
+    private ArrayList<Arrangement> arrangementList = new ArrayList<Arrangement>();
 
     public FileHandler() {
 

@@ -12,7 +12,7 @@ public class main {
 
         populateArray(filehandler.getPeopleList(), filehandler.readPeopleFromFile());
 
-        //mainMenu(input, filehandler);
+        mainMenu(input, filehandler);
 
         ArrayList<Event> tempEventList = new ArrayList<Event>();
 
@@ -28,7 +28,7 @@ public class main {
 
         Arrangement arrangement1 = new Arrangement(filehandler.getPeopleList().get(0), "01012020", events);
 
-        System.out.println(arrangement1);
+        //System.out.println(arrangement1);
 
         //Example on how to get customer by ID
         //System.out.println(filehandler.getCustomerByID(1));
@@ -97,6 +97,29 @@ public class main {
             mainMenu(input, filehandler);
         } else if (option.equalsIgnoreCase("p")){
             showPeopleData(input, filehandler);
+        } else if(option.equalsIgnoreCase("f")){
+            showFirmData(input, filehandler);
+        }
+    }
+
+    public static void showFirmData(Scanner input, FileHandler filehandler){
+        System.out.println("====Show Firm Data=====");
+        if(filehandler.getFirmList().size() == 0){
+            System.out.println("There's No Firm Data");
+        }else{
+            for(int i = 0; i <= filehandler.getFirmList().size() -1; i++){
+                System.out.println(" Customer ID: " + filehandler.getFirmList().get(i).getCustomerId() + " Firm name: " + filehandler.getFirmList().get(i).getName() + " Email: " + filehandler.getFirmList().get(i).getEmail() + " CVR: " + filehandler.getFirmList().get(i).getCVR() + " Phone number: " + filehandler.getFirmList().get(i).getPhoneNumber() + " Address: " + filehandler.getFirmList().get(i).getAddress());
+            }
+        }
+
+        System.out.println("D = Delete a private Customer B = back");
+        String option = input.next();
+        if(option.equalsIgnoreCase("d")){
+            System.out.println("Give the ID of the Private Customer you would like to delete: ");
+            int selectedId = input.nextInt();
+            deleteFirm(input, filehandler, selectedId);
+        }else if(option.equalsIgnoreCase("b")){
+            showData(input, filehandler);
         }
     }
 
@@ -129,6 +152,21 @@ public class main {
                 showPeopleData(input, filehandler);
             }
 
+        }
+
+    // Deletes firm with chosen ID
+    public static void deleteFirm(Scanner input, FileHandler filehandler, int selectedID) {
+            for (int i = 0; i <= filehandler.getFirmList().size() - 1; i++) {
+                System.out.println(filehandler.getFirmList().get(i).getCustomerId());
+                if (filehandler.getFirmList().get(i).getCustomerId() == selectedID) {
+                    System.out.println("Are you sure? You're deleting: " + filehandler.getFirmList().get(i).getName() + "\nAnswer with: Y/N");
+                    String answer = input.next();
+                    if(answer.equalsIgnoreCase("y"))
+                        System.out.println("Succesfully deleted: " + filehandler.getFirmList().get(i).getName() + "\nWith costumer id: " +filehandler.getFirmList().get(i).getCustomerId());
+                    filehandler.getFirmList().remove(i);
+                }
+            }
+            showFirmData(input, filehandler);
         }
 
     public static void newPersonScanner(Scanner input, FileHandler filehandler)   {
@@ -297,36 +335,6 @@ public class main {
                 }
             }
         } else if (anss.equalsIgnoreCase("N")) {
-        }
-    }
-
-    // implementer til koden
-    public static void deleteFirm() {
-        Scanner scan = new Scanner(System.in);
-        ArrayList<Firm> arrayFirm = new ArrayList<Firm>();
-
-        Firm firm1 = new Firm(22, "lol", "lol.dk", 141516, 2224, "hejjj");
-
-        arrayFirm.add(firm1);
-
-        System.out.println("Do you want to delete a firm? Y/N");
-        String ans = scan.next();
-
-        if(ans.equalsIgnoreCase("Y")) {
-            System.out.println("Which firm do you want to delete, enter costumer id: ");
-            int delete = scan.nextInt();
-
-            for (int i = 0; i <= arrayFirm.size() - 1; i++) {
-                System.out.println(arrayFirm.get(i).getCustomerId());
-                if (arrayFirm.get(i).getCustomerId() == delete) {
-                    System.out.println("Are you sure? You're deleting: " + arrayFirm.get(i).getName() + "\nAnswer with: Y/N");
-                    String answer = scan.next();
-                    if(answer.equalsIgnoreCase("y"))
-                        System.out.println("Succesfully deleted: " + arrayFirm.get(i).getName() + "\nWith costumer id: " + arrayFirm.get(i).getCustomerId());
-                    arrayFirm.remove(i);
-                }
-            }
-        }else if(ans.equalsIgnoreCase("N"))   {
         }
     }
 
