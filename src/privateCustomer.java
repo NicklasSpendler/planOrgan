@@ -1,12 +1,12 @@
 public class privateCustomer {
-    private int costumerId;
+    private int customerId;
     private String firstName;
     private String lastName;
     private String email;
     private int number;
 
-    public privateCustomer(int costumerId, String firstName, String lastName, String email, int number) {
-        this.costumerId = costumerId;
+    public privateCustomer(int customerId, String firstName, String lastName, String email, int number) {
+        this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -27,12 +27,12 @@ public class privateCustomer {
                 ", number=" + number +
                 '}';
     }
-    public int getCostumerId() {
-        return costumerId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCostumerId(int costumerId) {
-        this.costumerId = costumerId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getFirstName() {

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -11,7 +12,23 @@ public class main {
 
         populateArray(filehandler.getPeopleList(), filehandler.readPeopleFromFile());
 
-        mainMenu(input, filehandler);
+        //mainMenu(input, filehandler);
+
+        ArrayList<Event> tempEventList = new ArrayList<Event>();
+
+        filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "Fødz", 5, "Det_er_fødzdag", 1, 1, "mon", 21));
+        filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "Fødz", 5, "Det_er_fødzdag", 1, 1, "mon", 21));
+
+        tempEventList.add(filehandler.getEventList().get(0));
+        tempEventList.add(filehandler.getEventList().get(1));
+
+        ArrayList<Integer> events = new ArrayList<Integer>();
+        events.add(0);
+        events.add(1);
+
+        Arrangement arrangement1 = new Arrangement(filehandler.getPeopleList().get(0), "01012020", events);
+
+        System.out.println(arrangement1);
 
         //Example on how to get customer by ID
         //System.out.println(filehandler.getCustomerByID(1));
@@ -27,10 +44,10 @@ public class main {
     }
 
     public static void mainMenu(Scanner input, FileHandler filehandler){
+
         System.out.println("====== Main Menu ======");
         System.out.println("A: Add functions");
         System.out.println("S: Show Data");
-        System.out.println("D: Delete functions");
         System.out.println("?: Help");
         System.out.println("=======================");
 
@@ -38,6 +55,8 @@ public class main {
 
         if(option.toLowerCase().contains("a")){
             addFunctions(input, filehandler);
+        }else if (option.equalsIgnoreCase("s")){
+            showData(input, filehandler);
         }
     }
 
@@ -59,8 +78,58 @@ public class main {
             newFirmScanner(input, filehandler);
         }else if(option.toLowerCase().contains("e")){
             newEventScanner(input, filehandler);
+        }else if(option.equalsIgnoreCase("i")){
+            newFacilitatorScanner(input, filehandler);
         }
     }
+
+    public static void showData(Scanner input, FileHandler filehandler){
+        System.out.println("=======Show Data=======");
+        System.out.println("P: Person");
+        System.out.println("F: Firm");
+        System.out.println("E: Event");
+        System.out.println("A: Arrangement");
+        System.out.println("I: Facilitator");
+        System.out.println("B: Back");
+
+        String option = input.next();
+        if(option.equalsIgnoreCase("b")){
+            mainMenu(input, filehandler);
+        } else if (option.equalsIgnoreCase("p")){
+            showPeopleData(input, filehandler);
+        }
+    }
+
+    public static void showPeopleData(Scanner input, FileHandler filehandler){
+        System.out.println("=Show Private Customer=");
+        for (int i = 0; i <= filehandler.getPeopleList().size() -1; i++){
+            System.out.println("id: "+ filehandler.getPeopleList().get(i).getCustomerId() + " Name: " + filehandler.getPeopleList().get(i).getFirstName() + " " +filehandler.getPeopleList().get(i).getLastName() + "Email: " + filehandler.getPeopleList().get(i).getEmail()+ "Phone number: " + filehandler.getPeopleList().get(i).getNumber());
+        }
+
+        System.out.println("D = Delete a private Customer B = back");
+        String option = input.next();
+        if(option.toLowerCase().contains("d")){
+            System.out.println("Give the ID of the Private Customer you would like to delete: ");
+            int selectedId = input.nextInt();
+            deletePerson(input, filehandler, selectedId);
+        }
+    }
+
+    public static void deletePerson(Scanner input, FileHandler filehandler, int selectedID) {
+            for (int i = 0; i <= filehandler.getPeopleList().size() - 1; i++){
+                System.out.println(filehandler.getPeopleList().get(i).getCustomerId());
+                if (filehandler.getPeopleList().get(i).getCustomerId() == selectedID) {
+                    System.out.println("Are you sure? You're deleting: " + filehandler.getPeopleList().get(i).getFirstName() + "\nAnswer with Y/N");
+                    String answer = input.next();
+                    if(answer.equalsIgnoreCase("y")) {
+                        System.out.println("Succesfully deleted: " + filehandler.getPeopleList().get(i).getFirstName() + "\nWith costumer id: " + filehandler.getPeopleList().get(i).getCustomerId());
+                        filehandler.getPeopleList().remove(i);
+                    }
+                }
+                showPeopleData(input, filehandler);
+            }
+
+        }
 
     public static void newPersonScanner(Scanner input, FileHandler filehandler)   {
         int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
@@ -155,6 +224,29 @@ public class main {
         }
     }
 
+    public static void newFacilitatorScanner(Scanner input, FileHandler filehandler){
+        int cosID = getFreeFacilitatorId(filehandler.getFacilitatorList());
+
+        System.out.println("Enter name: ");
+        String name = input.next();
+
+        System.out.println("Enter phonenumber");
+        int phoneNumber = input.nextInt();
+
+        System.out.println("Enter email");
+        String email = input.next();
+
+        filehandler.getFacilitatorList().add(addFacilitator(cosID, name, phoneNumber, email));
+        System.out.println("New facilitator has been created: " + name + " with ID: " + cosID);
+    }
+
+    public static Facilitator addFacilitator(int facilitatorID, String name, int phoneNumber, String email){
+        //creates a new facilitator object
+        Facilitator tempFacilitator = new Facilitator(facilitatorID, name, phoneNumber, email);
+
+        return tempFacilitator;
+    }
+
     public static Firm addFirm(int costumerID, String name, String email, int CVR, int phoneNumber, String address) {
         Firm tempFirm = new Firm(costumerID, name, email, CVR, phoneNumber, address);
 
@@ -175,6 +267,39 @@ public class main {
         return tempEvent;
     }
 
+
+
+    // skal testes
+    public static void deleteFacilitator() {
+        Scanner scan = new Scanner(System.in);
+        ArrayList<Facilitator> arrayFacilitator = new ArrayList<Facilitator>();
+
+        Facilitator fac1 = new Facilitator(44, "Stefan", 33445566, "Stefan@PlanOrgan.dk");
+
+        arrayFacilitator.add(fac1);
+
+        System.out.println("Do you want to delete a Facilitator from an event? Y/N");
+        String anss = scan.next();
+
+        if (anss.equalsIgnoreCase("y")) {
+            System.out.println("Enter the Costumer-ID on the event, the facilitator works on: ");
+            int dele = scan.nextInt();
+
+            for (int i = 0; i <= arrayFacilitator.size() - 1; i++) {
+                System.out.println(arrayFacilitator.get(i).getID());
+                if (arrayFacilitator.get(i).getID() == dele) {
+                    System.out.println("Are you sure? You're deleting: " + arrayFacilitator.get(i).getName() + ", " + arrayFacilitator.get(i).getFacilitatorID() + "\nFrom this event: " + arrayFacilitator.get(i).getID() + "\n Answer with Y/N");
+                    String confirm = scan.next();
+                    if (confirm.equalsIgnoreCase("y")) {
+                        System.out.println("Succesfully deleted: " + arrayFacilitator.get(i).getName() + ", " + arrayFacilitator.get(i).getFacilitatorID() + "\nFrom this event: " + arrayFacilitator.get(i).getFacilitatorID());
+                        arrayFacilitator.remove(i);
+                    }
+                }
+            }
+        } else if (anss.equalsIgnoreCase("N")) {
+        }
+    }
+
     // implementer til koden
     public static void deleteFirm() {
         Scanner scan = new Scanner(System.in);
@@ -192,12 +317,12 @@ public class main {
             int delete = scan.nextInt();
 
             for (int i = 0; i <= arrayFirm.size() - 1; i++) {
-                System.out.println(arrayFirm.get(i).getCostumerId());
-                if (arrayFirm.get(i).getCostumerId() == delete) {
+                System.out.println(arrayFirm.get(i).getCustomerId());
+                if (arrayFirm.get(i).getCustomerId() == delete) {
                     System.out.println("Are you sure? You're deleting: " + arrayFirm.get(i).getName() + "\nAnswer with: Y/N");
                     String answer = scan.next();
                     if(answer.equalsIgnoreCase("y"))
-                        System.out.println("Succesfully deleted: " + arrayFirm.get(i).getName() + "\nWith costumer id: " + arrayFirm.get(i).getCostumerId());
+                        System.out.println("Succesfully deleted: " + arrayFirm.get(i).getName() + "\nWith costumer id: " + arrayFirm.get(i).getCustomerId());
                     arrayFirm.remove(i);
                 }
             }
@@ -231,13 +356,13 @@ public class main {
         // Populate array with current ids
         if(peopleList.size() > 0){ // checks if there's any indexes in the peopleList
             for (int i = 0; i <= peopleList.size() - 1; i++){
-                ids.add(peopleList.get(i).getCostumerId()); // adds the ids of the peoples in the peopleList
+                ids.add(peopleList.get(i).getCustomerId()); // adds the ids of the peoples in the peopleList
             }
         }
 
         if(firmList.size() > 0){// checks if there's any indexes in the firmList
             for(int k = 0; k <= firmList.size() - 1; k++){
-                ids.add(firmList.get(k).getCostumerId()); // adds the ids of the firms in the firmList
+                ids.add(firmList.get(k).getCustomerId()); // adds the ids of the firms in the firmList
             }
         }
 

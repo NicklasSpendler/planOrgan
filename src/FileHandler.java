@@ -17,7 +17,6 @@ public class FileHandler {
 
     }
 
-
     public ArrayList<Event> readEventsFromFile(){
         ArrayList<Event> tempArray = new ArrayList<Event>();
 
@@ -135,7 +134,7 @@ public class FileHandler {
             FileWriter myWriter = new FileWriter("peopleData.txt", true);
             for(int i = 0; i <= people.size() - 1; i++){
                 // writes variables into file in a line.
-                myWriter.write(people.get(i).getCostumerId() + " " + people.get(i).getFirstName() + " " + people.get(i).getLastName() + " " + people.get(i).getEmail() + " " + people.get(i).getNumber());
+                myWriter.write(people.get(i).getCustomerId() + " " + people.get(i).getFirstName() + " " + people.get(i).getLastName() + " " + people.get(i).getEmail() + " " + people.get(i).getNumber());
                 if(i != people.size() - 1){ // If we arent on the last index of the array, make a new line.
                     myWriter.write("\n");
                 }
@@ -147,7 +146,6 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
-
 
     // same as write people to file
     public void writeEventsToFile(ArrayList<Event> events){
@@ -173,22 +171,6 @@ public class FileHandler {
         }
     }
 
-
-    // treverses through peopleList and firmList to find the ID that matches the paramter.
-    public Object getCustomerByID(int id){
-        for (int i = 0; i <= peopleList.size() -1; i++){
-            if(peopleList.get(i).getCostumerId() == id){
-                return peopleList.get(i);
-            }
-        }
-        for(int i = 0; i <= firmList.size() - 1; i++){
-            if(firmList.get(i).getCostumerId() == id){
-                return firmList.get(i);
-            }
-        }
-        return null;
-    }
-
     // same as write people to file
     public void writeFirmToFile(ArrayList<Firm> firm){
         File firmFile = new File("firmData.txt");
@@ -198,7 +180,7 @@ public class FileHandler {
             FileWriter myWriter = new FileWriter("firmData.txt", true);
             for (int i = 0; i <= firm.size() - 1; i++){
 
-                myWriter.write(firm.get(i).getCostumerId() + " " + firm.get(i).getName() + " " + firm.get(i).getEmail() + " " + firm.get(i).getCVR() + " " + firm.get(i).getPhoneNumber() + " " + firm.get(i).getAdress());
+                myWriter.write(firm.get(i).getCustomerId() + " " + firm.get(i).getName() + " " + firm.get(i).getEmail() + " " + firm.get(i).getCVR() + " " + firm.get(i).getPhoneNumber() + " " + firm.get(i).getAdress());
                 if (i != firm.size() - 1) {
                     myWriter.write("\n");
                 }
@@ -233,6 +215,20 @@ public class FileHandler {
     }
 
 
+    // treverses through peopleList and firmList to find the ID that matches the paramter.
+    public Object getCustomerByID(int id){
+        for (int i = 0; i <= peopleList.size() -1; i++){
+            if(peopleList.get(i).getCustomerId() == id){
+                return peopleList.get(i);
+            }
+        }
+        for(int i = 0; i <= firmList.size() - 1; i++){
+            if(firmList.get(i).getCustomerId() == id){
+                return firmList.get(i);
+            }
+        }
+        return null;
+    }
     // treverses through facilitators to find the one with the ID in the paramter;
     public Facilitator getFacilitatorByID(int id){
         for(int i = 0; i <= facilitatorList.size() -1; i++){

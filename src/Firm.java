@@ -1,14 +1,14 @@
 public class Firm {
 
-    int costumerId;
+    int customerId;
     private String name;
     private String email;
     private int CVR;
     private int phoneNumber;
     private String address;
 
-    public Firm(int costumerId, String name, String email, int CVR, int phoneNumber, String address){
-        this.costumerId = costumerId;
+    public Firm(int customerId, String name, String email, int CVR, int phoneNumber, String address){
+        this.customerId = customerId;
         this.name = name;
         this.email = email;
         this.CVR = CVR;
@@ -19,7 +19,7 @@ public class Firm {
     @Override
     public String toString() {
         return "Firm{" +
-                "ID: '" + costumerId + '\'' +
+                "ID: '" + customerId + '\'' +
                 "name='" + name + '\'' +
                 ", CVR=" + CVR +
                 ", phoneNumber=" + phoneNumber +
@@ -27,12 +27,12 @@ public class Firm {
                 '}';
     }
 
-    public int getCostumerId() {
-        return costumerId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCostumerId(int costumerId) {
-        this.costumerId = costumerId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getEmail() {
