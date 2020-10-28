@@ -239,6 +239,14 @@ public class FileHandler {
         }
         return null;
     }
+    public Event getEventByID(int id) {
+        for (int i = 0; i <= eventList.size() - 1; i++){
+            if (eventList.get(i).getID() == id){
+                return eventList.get(i);
+            }
+        }
+        return null;
+    }
 
     // Method that calls all the write to file methods. Usable for quick save.
     public void saveProgress(){
