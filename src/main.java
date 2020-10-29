@@ -352,9 +352,7 @@ public class main {
         return tempArrangement;
     }
 
-
-
-    // skal testes
+    // skal implementeres
     public static void deleteFacilitator() {
         Scanner scan = new Scanner(System.in);
         ArrayList<Facilitator> arrayFacilitator = new ArrayList<Facilitator>();
@@ -475,5 +473,4 @@ public class main {
 
         return pasteInto; // return the pasted array;
     }
-
 }
