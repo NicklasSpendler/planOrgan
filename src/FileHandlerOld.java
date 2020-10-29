@@ -3,11 +3,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 
-public class FileHandler {
+public class FileHandlerOld {
 
     private ArrayList<privateCustomer> peopleList = new ArrayList<privateCustomer>();
     private ArrayList<Event> eventList = new ArrayList<Event>();
@@ -15,11 +14,11 @@ public class FileHandler {
     private ArrayList<Firm> firmList = new ArrayList<Firm>();
     private ArrayList<Arrangement> arrangementList = new ArrayList<Arrangement>();
 
-    public FileHandler() {
+    public FileHandlerOld() {
 
     }
 
-    public void readEventsFromFile(){
+    public ArrayList<Event> readEventsFromFile(){
         ArrayList<Event> tempArray = new ArrayList<Event>();
 
         try {
@@ -43,13 +42,11 @@ public class FileHandler {
             e.printStackTrace();
         }
         
-        for (int i = 0; i <= tempArray.size() - 1; i++){
-            getEventList().add(tempArray.get(i));
-        }
+        return tempArray;
     }
 
     // Reads file, expected to have people in it.
-    public void readPeopleFromFile(){
+    public ArrayList<privateCustomer> readPeopleFromFile(){
 
         ArrayList<privateCustomer> tempArray = new ArrayList<privateCustomer>();
 
@@ -71,13 +68,11 @@ public class FileHandler {
             e.printStackTrace();
         }
 
-        for (int i = 0;i <= tempArray.size() - 1; i++){
-            getPeopleList().add(tempArray.get(i));
-        }
+        return tempArray;
     }
 
     // Reads file from firm
-    public void readFirmFromFile(){
+    public ArrayList<Firm> readFirmFromFile(){
 
         ArrayList<Firm> firmArray = new ArrayList<Firm>();
 
@@ -100,12 +95,11 @@ public class FileHandler {
             e.printStackTrace();
         }
 
-        for(int i = 0; i <= firmArray.size() -1; i++){
-            getFirmList().add(firmArray.get(i));
-        }
+        return firmArray;
+
     }
 
-    public void readArrangementFromFile(){
+    public ArrayList<Arrangement> readArrangementFromFile(){
         ArrayList<Arrangement> arrangementArray = new ArrayList<Arrangement>();
 
         try {
@@ -134,15 +128,13 @@ public class FileHandler {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        getArrangementList().clear();
-        for(int i = 0; i<= arrangementArray.size() - 1; i++){
-            getArrangementList().add(arrangementArray.get(i));
-        }
+
+        return arrangementArray;
     }
 
-    public void readFacilitatorFromFile(){
+    public ArrayList<Facilitator> readFacilitatorFromFile(){
 
-        ArrayList<Facilitator> tempFacilitatorArray = new ArrayList<Facilitator>();
+        ArrayList<Facilitator> readFacilitator = new ArrayList<Facilitator>();
 
         try {
             File facilitatorFile = new File("facilitatorData.txt");
@@ -154,22 +146,20 @@ public class FileHandler {
                 int phonenumber = myReader.nextInt();
                 String email = myReader.next();
                 Facilitator newFacilitator = new Facilitator (facilitatorID, name, phonenumber, email);
-                tempFacilitatorArray.add(newFacilitator);
+                readFacilitator.add(newFacilitator);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        for (int i = 0; i <= tempFacilitatorArray.size() - 1; i++){
-            getFacilitatorList().add(tempFacilitatorArray.get(i));
-        }
+        return readFacilitator;
     }
 
     public void writeArrangementToFile(ArrayList<Arrangement> arragementList){
         // deletes file if it exsists.
-        File arragementFile = new File("ArragementData.txt");
-        arragementFile.delete();
+        File personFile = new File("ArragementData.txt");
+        personFile.delete();
 
         try {
             FileWriter myWriter = new FileWriter("ArragementData.txt", true);
@@ -193,6 +183,7 @@ public class FileHandler {
                 }
             }
             myWriter.close();
+            System.out.println("Successfully wrote Arrangement to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -216,6 +207,7 @@ public class FileHandler {
                 }
             }
             myWriter.close();
+            System.out.println("Successfully wrote peoples to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -239,6 +231,7 @@ public class FileHandler {
 
             }
             myWriter.close();
+            System.out.println("Successfully wrote events to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -260,6 +253,7 @@ public class FileHandler {
                 }
             }
             myWriter.close();
+            System.out.println("Successfully wrote firm to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -280,6 +274,7 @@ public class FileHandler {
                 }
             }
             myWriter.close();
+            System.out.println("Successfully wrote facilitator to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred");
             e.printStackTrace();
@@ -310,14 +305,6 @@ public class FileHandler {
         }
         return null;
     }
-    public Arrangement getArrangementByEventID(int id){
-        for (int i = 0; i <= getArrangementList().size() - 1; i++){
-            if(getArrangementList().get(i).getEvents().contains(id)){
-                return  getArrangementList().get(i);
-            }
-        }
-        return null;
-    }
     public Event getEventByID(int id) {
         for (int i = 0; i <= eventList.size() - 1; i++){
             if (eventList.get(i).getID() == id){
@@ -327,38 +314,9 @@ public class FileHandler {
         return null;
     }
 
-    public void createFiles() throws IOException {
-        File personFile = new File("peopleData.txt");
-        File firmFile = new File("firmData.txt");
-        File facilitator = new File("facilitatorData.txt");
-        File event = new File("eventsFile.txt");
-        File Arrangement = new File("ArragementData.txt");
-        if(!personFile.exists()){
-             FileWriter myWriter = new FileWriter("peopleData.txt", true);
-        }
-        if(!firmFile.exists()){
-            FileWriter myWriter = new FileWriter("firmData.txt", true);
-        }
-        if(!facilitator.exists()){
-            FileWriter myWriter = new FileWriter("facilitatorData.txt", true);
-        }
-        if(!event.exists()){
-            FileWriter myWriter = new FileWriter("eventsFile.txt", true);
-        }
-        if(!Arrangement.exists()){
-            FileWriter myWriter = new FileWriter("ArragementData.txt", true);
-        }
-    }
-
     // Method that calls all the write to file methods. Usable for quick save.
     public void saveProgress(){
         writePeopleToFile(getPeopleList());
-        writeArrangementToFile(getArrangementList());
-        writeEventsToFile(getEventList());
-        writeFacilitatorToFile(getFacilitatorList());
-        writeFirmToFile(getFirmList());
-
-        System.out.println("Saved data");
     }
 
 

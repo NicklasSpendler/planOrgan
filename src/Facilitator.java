@@ -1,8 +1,8 @@
 public class Facilitator {
+    private int facilitatorID;
     private String name;
     private int phoneNumber;
     private String email;
-    private int facilitatorID;
 
     public Facilitator(int facilitatorID,String name, int phoneNumber, String email) {
         this.facilitatorID = facilitatorID;
@@ -11,9 +11,11 @@ public class Facilitator {
         this.email = email;
     }
 
+    @Override
     public String toString() {
         return "Facilitator{" +
-                "name='" + name + '\'' +
+                "facilitatorID=" + facilitatorID +
+                ", name='" + name + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", email='" + email + '\'' +
                 '}';

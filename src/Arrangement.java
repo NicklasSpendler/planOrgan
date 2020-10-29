@@ -3,8 +3,8 @@ import java.util.Arrays;
 
 public class Arrangement {
 
-    int id;
-    int customerID;
+    private int id;
+    private int customerID;
     private String date;
     private ArrayList<Integer> events;
 
@@ -38,12 +38,12 @@ public class Arrangement {
 
     @Override
     public String toString() {
-        return "Arrangement{" +
-                "id=" + id +
-                ", customerID='" + customerID + '\'' +
-                ", date='" + date + '\'' +
-                ", events=" + events +
-                '}';
+        return "Arrangement:" +
+                "\nid=" + id +
+                "\ncustomerID=" + customerID +
+                "\ndate=" + date +
+                "\nevents=" + events +
+                "\n==================";
     }
 
     public int getId() {
@@ -69,4 +69,5 @@ public class Arrangement {
     public void setEvents(ArrayList<Integer> events) {
         this.events = events;
     }
+
 }
