@@ -61,30 +61,6 @@ public class main {
         }
     }
 
-    /*
-    public static void addFunctions(Scanner input, FileHandler filehandler){
-        System.out.println("========= Add =========");
-        System.out.println("P: Person");
-        System.out.println("F: Firm");
-        System.out.println("A: Arrangement");
-        System.out.println("I: Facilitator");
-        System.out.println("B: Back");
-
-        String option = input.next();
-        if(option.toLowerCase().contains("p")){
-            newPersonScanner(input, filehandler);
-        }else if(option.toLowerCase().contains("b")){
-            mainMenu(input, filehandler);
-        }else if(option.toLowerCase().contains("f")){
-            newFirmScanner(input, filehandler);
-        }else if(option.toLowerCase().contains("e")){
-            newEventScanner(input, filehandler);
-        }else if(option.equalsIgnoreCase("i")){
-            newFacilitatorScanner(input, filehandler);
-        }
-    }
-     */
-
     public static void showData(Scanner input, FileHandler filehandler){
         System.out.println("=======Show Data=======");
         System.out.println("P: Person");
@@ -102,6 +78,8 @@ public class main {
             showFirmData(input, filehandler);
         }else if(option.equalsIgnoreCase("i")){
             showFacilitatorData(input, filehandler);
+        }else if(option.equalsIgnoreCase("a")){
+            showArrangement(input, filehandler);
         }
     }
 
@@ -149,7 +127,7 @@ public class main {
     public static void showPeopleData(Scanner input, FileHandler filehandler){
         System.out.println("=Show Private Customer=");
         for (int i = 0; i <= filehandler.getPeopleList().size() -1; i++){
-            System.out.println("id: "+ filehandler.getPeopleList().get(i).getCustomerId() + " Name: " + filehandler.getPeopleList().get(i).getFirstName() + " " +filehandler.getPeopleList().get(i).getLastName() + "Email: " + filehandler.getPeopleList().get(i).getEmail()+ "Phone number: " + filehandler.getPeopleList().get(i).getNumber());
+            System.out.println("id: "+ filehandler.getPeopleList().get(i).getCustomerId() + " Name: " + filehandler.getPeopleList().get(i).getFirstName() + " " +filehandler.getPeopleList().get(i).getLastName() + " Email: " + filehandler.getPeopleList().get(i).getEmail()+ " Phone number: " + filehandler.getPeopleList().get(i).getNumber());
         }
 
         System.out.println("A = Add a new private Customer | D = Delete a private Customer | E = Edit a Private Customer | B = back");
@@ -166,6 +144,13 @@ public class main {
             System.out.println("Which costumer would you like to edit? Give the customers ID");
             int chooseID = input.nextInt();
             editPerson(input, filehandler, chooseID);
+        }
+    }
+
+    public static void showArrangement(Scanner input, FileHandler filehandler){
+        System.out.println("======Arrangement======");
+        for (int i = 0; i <= filehandler.getArrangementList().size() -1; i++){
+            System.out.println("id: " + filehandler.getArrangementList().get(i).getId() + " Customer: " + filehandler.getCustomerByID(filehandler.getArrangementList().get(i).getCustomerID()));
         }
     }
 
@@ -275,14 +260,20 @@ public class main {
         if(newEmail != "0"){
             tempPrivateCustomer.setEmail(newEmail);
         }
-        System.out.println("Change phone number from '" + tempPrivateCustomer.getNumber() + "' to");
+        System.out.println("Change phone number from '" + tempPrivateCustomer.getNumber() + "' to:");
         int newNumber = input.nextInt();
-        if(input.nextInt() != 0){
+        if(newNumber != 0){
             tempPrivateCustomer.setNumber(newNumber);
         }
+        System.out.println("Would you like to confirm these changes?");
+        System.out.println(tempPrivateCustomer);
 
-        fileHandler.getPeopleList().set(indexNumber, tempPrivateCustomer);
-        System.out.println("Edited private customer: \n" + fileHandler.getPeopleList().get(indexNumber));
+        String option = input.next();
+        if(option.equalsIgnoreCase("y")){
+            fileHandler.getPeopleList().set(indexNumber, tempPrivateCustomer);
+            System.out.println("Edited private customer: \n" + fileHandler.getPeopleList().get(indexNumber));
+        }
+        showPeopleData(input, fileHandler);
     }
 
     public static void editFirm(Scanner input, FileHandler fileHandler, int selectedID){

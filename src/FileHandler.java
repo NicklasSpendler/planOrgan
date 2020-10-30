@@ -23,7 +23,7 @@ public class FileHandler {
         ArrayList<Event> tempArray = new ArrayList<Event>();
 
         try {
-            File peopleFile = new File("eventsFile.txt");
+            File peopleFile = new File("eventsData.txt");
             Scanner myReader = new Scanner(peopleFile);
             // reads lines from file
             while(myReader.hasNextLine()){
@@ -225,11 +225,11 @@ public class FileHandler {
     // same as write people to file
     public void writeEventsToFile(ArrayList<Event> events){
 
-        File eventsFile = new File("eventsFile.txt");
+        File eventsFile = new File("eventsData.txt");
         eventsFile.delete();
 
         try {
-            FileWriter myWriter = new FileWriter("eventsFile.txt", true);
+            FileWriter myWriter = new FileWriter("eventsData.txt", true);
             for(int i = 0; i <= events.size() - 1; i++){
 
                 myWriter.write(events.get(i).getType() + " " + events.get(i).getDescription() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerID() + " " + events.get(i).getFacilitatorID() + " " + events.get(i).getWeekDay() + " " + events.get(i).getTime());
@@ -331,7 +331,7 @@ public class FileHandler {
         File personFile = new File("peopleData.txt");
         File firmFile = new File("firmData.txt");
         File facilitator = new File("facilitatorData.txt");
-        File event = new File("eventsFile.txt");
+        File event = new File("eventsData.txt");
         File Arrangement = new File("ArragementData.txt");
         if(!personFile.exists()){
              FileWriter myWriter = new FileWriter("peopleData.txt", true);
@@ -343,7 +343,7 @@ public class FileHandler {
             FileWriter myWriter = new FileWriter("facilitatorData.txt", true);
         }
         if(!event.exists()){
-            FileWriter myWriter = new FileWriter("eventsFile.txt", true);
+            FileWriter myWriter = new FileWriter("eventsData.txt", true);
         }
         if(!Arrangement.exists()){
             FileWriter myWriter = new FileWriter("ArragementData.txt", true);
