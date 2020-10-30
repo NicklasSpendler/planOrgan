@@ -39,13 +39,12 @@ public class Arrangement {
     @Override
     public String toString() {
         return "Arrangement:" +
-                "\nid=" + id +
-                "\ncustomerID=" + customerID +
-                "\ndate=" + date +
-                "\nevents=" + events +
-                "\n==================";
+                "\nID: " + id +
+                "\nCustomer id: " + customerID +
+                "\nDate: " + date +
+                "\nEvents: " + events +
+                "\n=================================";
     }
-
     public int getId() {
         return id;
     }

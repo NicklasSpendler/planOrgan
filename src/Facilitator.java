@@ -11,14 +11,17 @@ public class Facilitator {
         this.email = email;
     }
 
+    public Facilitator(){
+
+    }
+
     @Override
     public String toString() {
-        return "Facilitator{" +
-                "facilitatorID=" + facilitatorID +
-                ", name='" + name + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", email='" + email + '\'' +
-                '}';
+        return "Facilitator: " +
+                "\nName: " + name +
+                "\nPhone Number: " + phoneNumber +
+                "\nEmail: " + email + "\n=================================";
+
     }
 
     public int getFacilitatorID() {

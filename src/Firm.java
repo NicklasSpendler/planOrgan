@@ -16,16 +16,20 @@ public class Firm {
         this.address = address;
     }
 
+    public Firm(){
+
+    }
+
     @Override
     public String toString() {
-        return "Firm{" +
-                "customerId=" + customerId +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", CVR=" + CVR +
-                ", phoneNumber=" + phoneNumber +
-                ", address='" + address + '\'' +
-                '}';
+        return "Firm: " +
+                "\nCustomer id: " + customerId +
+                "\nFirm name: " + name +
+                "\nEmail: " + email +
+                "\nCVR: " + CVR +
+                "\nPhone number: " + phoneNumber +
+                "\nAddress: " + address +
+                "\n=================================";
     }
 
     public String getEmail() {

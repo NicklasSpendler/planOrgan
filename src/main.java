@@ -252,10 +252,12 @@ public class main {
 
     public static void editPerson(Scanner input, FileHandler fileHandler, int selectedID){
         privateCustomer tempPrivateCustomer = new privateCustomer();
+        int indexNumber = 0;
         
         for (int i = 0; i <= fileHandler.getPeopleList().size() - 1; i++){
             if (fileHandler.getPeopleList().get(i).getCustomerId() == selectedID){
                 tempPrivateCustomer = fileHandler.getPeopleList().get(i);
+                indexNumber = i;
             }
         }
         System.out.println("Change the firstName from '" + tempPrivateCustomer.getFirstName() + "' to:");
@@ -279,7 +281,79 @@ public class main {
             tempPrivateCustomer.setNumber(newNumber);
         }
 
-        System.out.println(tempPrivateCustomer);
+        fileHandler.getPeopleList().set(indexNumber, tempPrivateCustomer);
+        System.out.println("Edited private customer: \n" + fileHandler.getPeopleList().get(indexNumber));
+    }
+
+    public static void editFirm(Scanner input, FileHandler fileHandler, int selectedID){
+        Firm tempFirm = new Firm();
+        int indexNumber = 0;
+
+        for (int i = 0; i <= fileHandler.getFirmList().size() - 1; i++){
+            if (fileHandler.getFirmList().get(i).getCustomerId() == selectedID){
+                tempFirm = fileHandler.getFirmList().get(i);
+                indexNumber = i;
+            }
+        }
+
+        System.out.println("Change the name from '" + tempFirm.getName() + "' to:");
+        String newName = input.next();
+        if(newName != "0"){
+            tempFirm.setName(newName);
+        }
+        System.out.println("Change the email from '"+ tempFirm.getEmail() +"' to:");
+        String newEmail = input.next();
+        if(newEmail != "0"){
+            tempFirm.setEmail(newEmail);
+        }
+        System.out.println("Change the CVR from '" + tempFirm.getCVR() + "' to");
+        int newCVR = input.nextInt();
+        if (input.nextInt() != 0){
+            tempFirm.setCVR(newCVR);
+        }
+        System.out.println("Change phone number from '" + tempFirm.getPhoneNumber() + "' to");
+        int newPhoneNumber = input.nextInt();
+        if (input.nextInt() != 0){
+            tempFirm.setPhoneNumber(newPhoneNumber);
+        }
+        System.out.println("Change the address from '"+ tempFirm.getAddress() +"' to:");
+        String newAddress = input.next();
+        if(newAddress != "0"){
+            tempFirm.setAddress(newAddress);
+        }
+
+        fileHandler.getFirmList().set(indexNumber, tempFirm);
+        System.out.println("Edited firm: \n" + fileHandler.getFirmList().get(indexNumber));
+    }
+
+    public static void editFacilitator(Scanner input, FileHandler fileHandler, int selectedID) {
+        Facilitator tempFacilitator = new Facilitator();
+        int indexNumber = 0;
+
+        for (int i = 0; i <= fileHandler.getFacilitatorList().size() - 1; i++) {
+            if (fileHandler.getFacilitatorList().get(i).getFacilitatorID() == selectedID) {
+                tempFacilitator = fileHandler.getFacilitatorList().get(i);
+                indexNumber = i;
+            }
+        }
+        System.out.println("Change name from ' " + tempFacilitator.getName() + "' to: ");
+        String newName = input.next();
+        if (newName != "0") {
+            tempFacilitator.setName(newName);
+        }
+        System.out.println("Change phone number from '" + tempFacilitator.getPhoneNumber() + "' to: ");
+        int newPhoneNumber = input.nextInt();
+        if (newPhoneNumber != 0) {
+            tempFacilitator.setPhoneNumber(newPhoneNumber);
+        }
+        System.out.println("Change email from '" + tempFacilitator.getEmail() + "' to: ");
+        String newEmail = input.next();
+        if (newEmail != "0") {
+            tempFacilitator.setEmail(newEmail);
+        }
+
+        fileHandler.getFacilitatorList().set(indexNumber, tempFacilitator);
+        System.out.println("Edited firm: \n" + fileHandler.getFacilitatorList().get(indexNumber));
     }
 
     public static void newPersonScanner(Scanner input, FileHandler filehandler)   {
@@ -430,6 +504,61 @@ public class main {
         Arrangement tempArrangement = new Arrangement(id, customerID, date, eventIds);
 
         return tempArrangement;
+    }
+
+    //Search Function
+    public static void searchList(Scanner input, FileHandler fileHandler){
+        ArrayList<Object> searchResult = new ArrayList<Object>();
+        System.out.println("What do you want to search for? ");
+        String search = input.nextLine().toLowerCase();
+
+        for(int i = 0; i <= fileHandler.getPeopleList().size() - 1; i++){
+            if(fileHandler.getPeopleList().get(i).getFirstName().toLowerCase().contains(search) || fileHandler.getPeopleList().get(i).getLastName().toLowerCase().contains(search) || fileHandler.getPeopleList().get(i).getEmail().toLowerCase().contains(search)){
+                searchResult.add(fileHandler.getPeopleList().get(i));
+            }
+        }
+        for(int i = 0; i <= fileHandler.getFirmList().size() - 1; i++){
+            if(fileHandler.getFirmList().get(i).getName().toLowerCase().contains(search) || fileHandler.getFirmList().get(i).getEmail().toLowerCase().contains(search) || fileHandler.getFirmList().get(i).getAddress().toLowerCase().contains(search)) {
+                searchResult.add(fileHandler.getFirmList().get(i));
+            }
+        }
+        for(int i = 0; i <= fileHandler.getFacilitatorList().size() - 1; i++){
+            if(fileHandler.getFacilitatorList().get(i).getName().toLowerCase().contains(search) || fileHandler.getFacilitatorList().get(i).getEmail().toLowerCase().contains(search)) {
+                searchResult.add(fileHandler.getFacilitatorList().get(i));
+            }
+        }
+        for (int i = 0; i <= fileHandler.getEventList().size() - 1; i++){
+            if (fileHandler.getEventList().get(i).getType().toLowerCase().contains(search) || fileHandler.getEventList().get(i).getDescription().toLowerCase().contains(search) || fileHandler.getEventList().get(i).getWeekDay().toLowerCase().contains(search)){
+                //Dens arrangement hvis event passer til eventet, bliver det smidt ind i Search Results
+                searchResult.add(fileHandler.getEventList().get(i));
+                if(fileHandler.getArrangementByEventID(fileHandler.getEventList().get(i).getID()) != null){
+                    System.out.println(fileHandler.getArrangementByEventID(fileHandler.getEventList().get(i).getID()));
+                }
+
+                if(searchResult.contains(fileHandler.getArrangementByEventID(fileHandler.getEventList().get(i).getID()))){
+                    searchResult.add(fileHandler.getArrangementByEventID(fileHandler.getEventList().get(i).getID()));
+                }
+            }
+        }
+        for(int i = 0; i <= searchResult.size() - 1; i++){
+            System.out.println(searchResult.get(i) + "\n");
+            //if(searchResult.get(i).getClass().getName() == "Facilitator"){
+            //System.out.println(searchResult.get(i).get);
+
+
+        }
+        System.out.println("Press 'S' if you want to search again\nPress 'B' to go back to the main  menu.");
+        String searchAns = input.next();
+        if (searchAns.equalsIgnoreCase("S")){
+            searchList(input, fileHandler);
+
+        }else if (searchAns.equalsIgnoreCase("B")){
+            mainMenu(input, fileHandler);
+        }else{
+            System.out.println("Invalid input");
+            mainMenu(input, fileHandler);
+        }
+
     }
 
     // skal implementeres

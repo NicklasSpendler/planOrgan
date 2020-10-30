@@ -22,16 +22,16 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", duration=" + duration +
-                ", description='" + description + '\'' +
-                ", customerID=" + customerID +
-                ", facilitatorID=" + facilitatorID +
-                ", weekDay='" + weekDay + '\'' +
-                ", time=" + time +
-                '}';
+        return "Event: " +
+                "\nID: " + id +
+                "\nType: " + type +
+                "\nDuration: " + duration +
+                "\nDescription: " + description +
+                "\nCustomer id: " + customerID +
+                "\nFacilitator id: " + facilitatorID +
+                "\nWeekday: " + weekDay +
+                "\nTime: " + time +
+                "\n=================================";
     }
 
     public String getType() {

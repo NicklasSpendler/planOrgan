@@ -17,16 +17,15 @@ public class privateCustomer {
 
     }
 
-
-
     public String toString() {
-        return "Person{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mail='" + email + '\'' +
-                ", number=" + number +
-                '}';
+        return "Private customer: "+
+                "\nFirst name: " + firstName +
+                "\nLast name: " + lastName +
+                "\nEmail: " + email +
+                "\nPhone number: " + number +
+                "\n=================================";
     }
+
     public int getCustomerId() {
         return customerId;
     }
