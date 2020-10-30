@@ -19,6 +19,8 @@ public class main {
         filehandler.readEventsFromFile();
         filehandler.readFacilitatorFromFile();
         filehandler.readFirmFromFile();
+
+
         /*
         filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "lol", 8, "lol", 1, 1, "mon", 8));
         filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "lol", 8, "lol", 1, 1, "mon", 8));
@@ -431,7 +433,7 @@ public class main {
             System.out.println("For how long will the event last?");
             double newEventDuration = input.nextDouble();
             System.out.println("Give an event description");
-            String newEventDescription = input.next();
+            String newEventDescription = input.nextLine();
             System.out.println("Choose an Facilitator");
             for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
                 System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
@@ -444,9 +446,8 @@ public class main {
             int eventID = getFreeEventId(filehandler.getEventList());
             filehandler.getEventList().add(addEvent(eventID, newEventType, newEventDuration, newEventDescription, customerID, newEventFacilitatorID, newEventWeekDay, newEventStartTime));
             tempArrangement.addEvent(eventID);
-
         }else if(option.equalsIgnoreCase("e")){
-
+            
         }else if(option.equalsIgnoreCase("d")){
 
         }else if(option.equalsIgnoreCase("b")){
@@ -587,10 +588,11 @@ public class main {
         while(addingEvents.equalsIgnoreCase("y")){
             System.out.println("What type of event is it?: ");
             String newEventType = input.next();
-            System.out.println("For how long will the event last?");
+            System.out.println("For how long will the event last? (in hours. Ex: 8,5)");
             double newEventDuration = input.nextDouble();
-            System.out.println("Give an event description");
-            String newEventDescription = input.next();
+            System.out.println("Give an event description (Spaces allowed)");
+            input.next();
+            String newEventDescription = input.nextLine();
             System.out.println("Choose an Facilitator");
             for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
                 System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
@@ -598,8 +600,8 @@ public class main {
             int newEventFacilitatorID = input.nextInt();
             System.out.println("What day will it be? (Example: mon, tue, wed)");
             String newEventWeekDay = input.next();
-            System.out.println("What time on the day will the Event start?");
-            double newEventStartTime = input.nextInt();
+            System.out.println("What time on the day will the Event start? (Ex: 21,00)");
+            double newEventStartTime = input.nextDouble();
             int eventID = getFreeEventId(filehandler.getEventList());
             filehandler.getEventList().add(addEvent(eventID, newEventType, newEventDuration, newEventDescription, customerID, newEventFacilitatorID, newEventWeekDay, newEventStartTime));
             tempArrangement.addEvent(eventID);
@@ -680,7 +682,7 @@ public class main {
     //Search Function
     public static void searchList(Scanner input, FileHandler fileHandler){
         ArrayList<Object> searchResult = new ArrayList<Object>();
-        System.out.println("What do you want to search for? ");
+        System.out.println("What do you want to search for? (Spaces allowed)");
         String search = input.nextLine().toLowerCase();
 
         for(int i = 0; i <= fileHandler.getPeopleList().size() - 1; i++){
