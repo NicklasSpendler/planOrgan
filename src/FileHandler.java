@@ -2,8 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -30,11 +33,13 @@ public class FileHandler {
                 int id = myReader.nextInt();
                 String type = myReader.next();
                 String description = myReader.next();
-                double duration = myReader.nextDouble();
+                String durationString = myReader.next();
+                double duration = Double.parseDouble(durationString);
                 int customerID = myReader.nextInt();
                 int facilitatorID = myReader.nextInt();
                 String weekday = myReader.next();
-                double time = myReader.nextDouble();
+                String timeString = myReader.next();
+                double time = Double.parseDouble(timeString);
                 Event tempEvent = new Event(id ,type, duration, description, customerID, facilitatorID, weekday, time);
                 tempArray.add(tempEvent);
             }
@@ -108,6 +113,8 @@ public class FileHandler {
     public void readArrangementFromFile(){
         ArrayList<Arrangement> arrangementArray = new ArrayList<Arrangement>();
 
+
+
         try {
             File firmFile = new File("ArragementData.txt");
             Scanner myReader = new Scanner(firmFile);
@@ -167,12 +174,14 @@ public class FileHandler {
     }
 
     public void writeArrangementToFile(ArrayList<Arrangement> arragementList){
-        // deletes file if it exsists.
-        File arragementFile = new File("ArragementData.txt");
-        arragementFile.delete();
+
 
         try {
+            FileWriter deleteContentWriter = new FileWriter("ArragementData.txt", false);
+            deleteContentWriter.write("");
+
             FileWriter myWriter = new FileWriter("ArragementData.txt", true);
+            myWriter.write("");
             for(int i = 0; i <= arragementList.size() - 1; i++){
                 // writes variables into file in a line.
                 String tempArray = "";
@@ -201,12 +210,11 @@ public class FileHandler {
 
     // writes people from an array into a file, can be read using readPeopleFromFile();
     public void writePeopleToFile(ArrayList<privateCustomer> people){
-
-        // deletes file if it exsists.
-        File personFile = new File("peopleData.txt");
-        personFile.delete();
-
         try {
+            FileWriter clearFile = new FileWriter("peopleData.txt", false);
+            clearFile.write("");
+
+
             FileWriter myWriter = new FileWriter("peopleData.txt", true);
             for(int i = 0; i <= people.size() - 1; i++){
                 // writes variables into file in a line.
@@ -225,21 +233,20 @@ public class FileHandler {
     // same as write people to file
     public void writeEventsToFile(ArrayList<Event> events){
 
-        File eventsFile = new File("eventsData.txt");
-        eventsFile.delete();
-
         try {
+            FileWriter clearFile = new FileWriter("eventsData.txt", false);
+            clearFile.write("");
+
             FileWriter myWriter = new FileWriter("eventsData.txt", true);
             for(int i = 0; i <= events.size() - 1; i++){
-
-                myWriter.write(events.get(i).getID() + " " + events.get(i).getType() + " " + events.get(i).getDescription() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerID() + " " + events.get(i).getFacilitatorID() + " " + events.get(i).getWeekDay() + " " + events.get(i).getTime());
+                myWriter.write(events.get(i).getID() + " " + events.get(i).getType() + " " + events.get(i).getDescription() + " " + (double) events.get(i).getDuration() + " " + events.get(i).getCustomerID() + " " + events.get(i).getFacilitatorID() + " " + events.get(i).getWeekDay() + " " + events.get(i).getTime());
                 if(i != events.size() - 1){
                     myWriter.write("\n");
                 }
 
             }
             myWriter.close();
-        } catch (IOException e) {
+        } catch (IOException  e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
@@ -247,10 +254,9 @@ public class FileHandler {
 
     // same as write people to file
     public void writeFirmToFile(ArrayList<Firm> firm){
-        File firmFile = new File("firmData.txt");
-        firmFile.delete();
-
         try {
+            FileWriter clearFile = new FileWriter("firmData.txt", false);
+            clearFile.write("");
             FileWriter myWriter = new FileWriter("firmData.txt", true);
             for (int i = 0; i <= firm.size() - 1; i++){
 
@@ -267,10 +273,12 @@ public class FileHandler {
     }
     // same as write people to file
     public void writeFacilitatorToFile(ArrayList<Facilitator> facilitator){
-        File facilitatorFile = new File("facilitatorData.txt");
-        facilitatorFile.delete();
 
         try {
+            FileWriter clearFile = new FileWriter("facilitatorData.txt");
+            clearFile.write("");
+
+
             FileWriter myWriter = new FileWriter("facilitatorData.txt");
             for (int i = 0; i <= facilitator.size() - 1; i++){
                 myWriter.write(facilitator.get(i).getFacilitatorID() + " " + facilitator.get(i).getName() + " " + facilitator.get(i).getPhoneNumber() + " " + facilitator.get(i).getEmail());

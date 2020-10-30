@@ -20,6 +20,10 @@ public class Event {
         this.time = time;
     }
 
+    public Event(){
+
+    }
+
     @Override
     public String toString() {
         return "Event: " +
@@ -68,6 +72,22 @@ public class Event {
 
     public void setWeekDay(String weekDay) {
         this.weekDay = weekDay;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
+    public void setFacilitatorID(int facilitatorID) {
+        this.facilitatorID = facilitatorID;
+    }
+
+    public void setTime(double time) {
+        this.time = time;
     }
 
     public void setDuration(double duration) {

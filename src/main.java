@@ -1,25 +1,33 @@
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class main {
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException, ParseException {
         Scanner input = new Scanner(System.in);
         FileHandler filehandler = new FileHandler();
 
         // create files that doesnt exsist
         filehandler.createFiles();
 
+        double test = 2.0;
+
+        NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
+        Number number = format.parse("2.8");
+        double d = number.doubleValue();
+        System.out.println(test);
+
         filehandler.readArrangementFromFile();
         filehandler.readPeopleFromFile();
         filehandler.readEventsFromFile();
         filehandler.readFacilitatorFromFile();
         filehandler.readFirmFromFile();
-
 
         /*
         filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "lol", 8, "lol", 1, 1, "mon", 8));
@@ -433,7 +441,7 @@ public class main {
             System.out.println("For how long will the event last?");
             double newEventDuration = input.nextDouble();
             System.out.println("Give an event description");
-            String newEventDescription = input.nextLine();
+            String newEventDescription = input.next();
             System.out.println("Choose an Facilitator");
             for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
                 System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
@@ -442,16 +450,72 @@ public class main {
             System.out.println("What day will it be? (Example: mon, tue, wed)");
             String newEventWeekDay = input.next();
             System.out.println("What time on the day will the Event start?");
-            double newEventStartTime = input.nextInt();
+            double newEventStartTime = input.nextDouble();
             int eventID = getFreeEventId(filehandler.getEventList());
             filehandler.getEventList().add(addEvent(eventID, newEventType, newEventDuration, newEventDescription, customerID, newEventFacilitatorID, newEventWeekDay, newEventStartTime));
             tempArrangement.addEvent(eventID);
         }else if(option.equalsIgnoreCase("e")){
-            
+            for (int i = 0; i <= tempArrangement.getEvents().size()-1; i++){
+                System.out.println(filehandler.getEventByID(tempArrangement.getEvents().get(i)));
+            }
+            System.out.println("Chose the event by ID");
+            int chosenID = input.nextInt();
+            editEvent(input, filehandler, chosenID);
         }else if(option.equalsIgnoreCase("d")){
 
         }else if(option.equalsIgnoreCase("b")){
             showArrangement(input, filehandler);
+        }
+        editArrangement(input, filehandler, selectedID);
+    }
+
+    public static void editEvent(Scanner input, FileHandler filehandler, int selectedID) {
+        Event tempEvent = new Event();
+        int indexNumber = 0;
+
+        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++)    {
+            if (filehandler.getEventList().get(i).getCustomerID() == selectedID)    {
+                tempEvent = filehandler.getEventList().get(i);
+                indexNumber = i;
+            }
+        }
+        System.out.println("Change type from: " + tempEvent.getType() + " to: ");
+        String newType = input.next();
+        if (!newType.equalsIgnoreCase("0")) {
+            tempEvent.setType(newType);
+        }
+        System.out.println("Change the duration from: " + tempEvent.getDuration() + " to: ");
+        double newDuration = input.nextDouble();
+        if (newDuration != 0)  {
+            tempEvent.setDuration(newDuration);
+        }
+        System.out.println("Change the description from: " + tempEvent.getDescription() + " to: ");
+        String newDesc = input.next();
+        if (!newDesc.equals("0"))   {
+            tempEvent.setDescription(newDesc);
+        }
+        System.out.println("Change the weekday from: " + tempEvent.getWeekDay() + " to: ");
+        String newWeekDay = input.next();
+        if (!newWeekDay.equalsIgnoreCase("0"))    {
+            tempEvent.setWeekDay(newWeekDay);
+        }
+        System.out.println("Change the time form: " + tempEvent.getTime() + " to: ");
+        double newTime = input.nextDouble();
+        if (newTime != 0) {
+            tempEvent.setTime(newTime);
+        }
+        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
+        String ans = input.next();
+        if (ans.equalsIgnoreCase("y"))  {
+            filehandler.getEventList().set(indexNumber, tempEvent);
+            System.out.println("Edited Event: \n" + filehandler.getEventList().get(indexNumber));
+        }else if (ans.equalsIgnoreCase("N")) {
+            editEvent(input, filehandler, selectedID);
+        }else if (ans.equalsIgnoreCase("B")) {
+            showEventData(input, filehandler);
+        }else{
+            System.out.println("Unknown input - Returning to main menu....");
+            showEventData(input, filehandler);
         }
     }
 
@@ -590,9 +654,8 @@ public class main {
             String newEventType = input.next();
             System.out.println("For how long will the event last? (in hours. Ex: 8,5)");
             double newEventDuration = input.nextDouble();
-            System.out.println("Give an event description (Spaces allowed)");
-            input.next();
-            String newEventDescription = input.nextLine();
+            System.out.println("Give an event description");
+            String newEventDescription = input.next();
             System.out.println("Choose an Facilitator");
             for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
                 System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
