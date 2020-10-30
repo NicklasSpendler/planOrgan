@@ -286,6 +286,14 @@ public class FileHandler {
         }
     }
 
+    public void deleteEventByID(int selectedID){
+        for (int i = 0; i <= eventList.size() - 1; i++)   {
+            if (eventList.get(i).getID() == selectedID) {
+                eventList.remove(i);
+            }
+        }
+    }
+
 
     // treverses through peopleList and firmList to find the ID that matches the paramter.
     public Object getCustomerByID(int id){
@@ -361,6 +369,19 @@ public class FileHandler {
         System.out.println("Saved data");
     }
 
+    //Method that replaces space with underscore '_'
+    public String replaceWithUC(String str){
+        String newstring = "";
+        newstring = str.replaceAll(" ", "_");
+        return newstring;
+    }
+
+    //Method that replaces underscore with space
+    public String replaceWithSpace(String str){
+        String newstring = "";
+        newstring = str.replaceAll("_", " ");
+        return newstring;
+    }
 
     // Getters
     public ArrayList<Facilitator> getFacilitatorList() {

@@ -1,11 +1,13 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException
+    {
         Scanner input = new Scanner(System.in);
         FileHandler filehandler = new FileHandler();
 
@@ -93,7 +95,7 @@ public class main {
             }
         }
 
-        System.out.println("A = Add a new Firm | D = Delete a private Customer | B = back");
+        System.out.println("A = Add a new Firm | D = Delete a private Customer | E = Edit a Firm | B = back");
         String option = input.next();
         if(option.equalsIgnoreCase("d")){
             System.out.println("Give the ID of the Private Customer you would like to delete: ");
@@ -103,31 +105,48 @@ public class main {
             mainMenu(input, filehandler);
         } else if (option.equalsIgnoreCase("a")){
             newFirmScanner(input, filehandler);
+        }else if(option.equalsIgnoreCase("E")){
+            System.out.println("Which facilitator would you like to edit? Give facilitator ID");
+            int chooseID = input.nextInt();
+            editFirm(input, filehandler, chooseID);
         }
+        System.out.println();
     }
 
     public static void showFacilitatorData(Scanner input, FileHandler filehandler){
         System.out.println("===Show Facilitator===");
-        for (int i = 0; i <= filehandler.getFacilitatorList().size() - 1; i++) {
-            System.out.println("ID: " +filehandler.getFacilitatorList().get(i).getFacilitatorID() + " Name: " + filehandler.getFacilitatorList().get(i).getName() + "Phone number: " +filehandler.getFacilitatorList().get(i).getPhoneNumber() + "Email: " + filehandler.getFacilitatorList().get(i).getEmail());
+        if (filehandler.getFacilitatorList().size() == 0){
+            System.out.println("There's No Facilitator Data");
+        }else {
+            for (int i = 0; i <= filehandler.getFacilitatorList().size() - 1; i++) {
+                System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getFacilitatorID() + " Name: " + filehandler.getFacilitatorList().get(i).getName() + "Phone number: " + filehandler.getFacilitatorList().get(i).getPhoneNumber() + "Email: " + filehandler.getFacilitatorList().get(i).getEmail());
+            }
         }
-        System.out.println("A = Add a new Facilitator | D = Delete a Facilitator | B = back");
+        System.out.println("A = Add a new Facilitator | D = Delete a Facilitator | E = Edit a Facilitator | B = back");
         String answer = input.next();
         if(answer.equalsIgnoreCase("D")) {
             System.out.println("Enter the ID of the Facilitator that you would like to delete");
             int selectedID = input.nextInt();
             deleteFacilitator(input, filehandler, selectedID);
         }else if (answer.equalsIgnoreCase("B")){
-            mainMenu(input, filehandler);
-        }else  if(answer.equalsIgnoreCase("A")){
+            showData(input, filehandler);
+        }else if(answer.equalsIgnoreCase("A")){
             newFacilitatorScanner(input, filehandler);
+        }else if(answer.equalsIgnoreCase("E")){
+            System.out.println("Which facilitator would you like to edit? Give facilitator ID");
+            int chooseID = input.nextInt();
+            editFacilitator(input, filehandler, chooseID);
         }
     }
 
     public static void showPeopleData(Scanner input, FileHandler filehandler){
         System.out.println("=Show Private Customer=");
-        for (int i = 0; i <= filehandler.getPeopleList().size() -1; i++){
-            System.out.println("id: "+ filehandler.getPeopleList().get(i).getCustomerId() + " Name: " + filehandler.getPeopleList().get(i).getFirstName() + " " +filehandler.getPeopleList().get(i).getLastName() + " Email: " + filehandler.getPeopleList().get(i).getEmail()+ " Phone number: " + filehandler.getPeopleList().get(i).getNumber());
+        if (filehandler.getPeopleList().size() == 0){
+            System.out.println("There's No People Data");
+        }else {
+            for (int i = 0; i <= filehandler.getPeopleList().size() - 1; i++) {
+                System.out.println("id: " + filehandler.getPeopleList().get(i).getCustomerId() + " Name: " + filehandler.getPeopleList().get(i).getFirstName() + " " + filehandler.getPeopleList().get(i).getLastName() + " Email: " + filehandler.getPeopleList().get(i).getEmail() + " Phone number: " + filehandler.getPeopleList().get(i).getNumber());
+            }
         }
 
         System.out.println("A = Add a new private Customer | D = Delete a private Customer | E = Edit a Private Customer | B = back");
@@ -150,7 +169,20 @@ public class main {
     public static void showArrangement(Scanner input, FileHandler filehandler){
         System.out.println("======Arrangement======");
         for (int i = 0; i <= filehandler.getArrangementList().size() -1; i++){
-            System.out.println("id: " + filehandler.getArrangementList().get(i).getId() + " Customer: " + filehandler.getCustomerByID(filehandler.getArrangementList().get(i).getCustomerID()));
+            System.out.println("id: " + filehandler.getArrangementList().get(i).getId() + " Customer: " + filehandler.getArrangementList().get(i).getCustomerID() + " Date: " + filehandler.getArrangementList().get(i).getDate() + " Event ids: " + filehandler.getArrangementList().get(i).getEvents());
+        }
+
+        System.out.println("A = Add a new Arrangement | D = Delete an Arrangement | E = Edit an Arrangement | B = Back");
+        String option = input.next();
+
+        if(option.equalsIgnoreCase("a")){
+            newArrangementScanner(input, filehandler);
+        }if(option.equalsIgnoreCase("b")){
+            showData(input, filehandler);
+        }if(option.equalsIgnoreCase("e")){
+            System.out.println("Give the ID of the Arrangement you would like to edit");
+            int selectedID = input.nextInt();
+            editArrangement(input, filehandler, selectedID);
         }
     }
 
@@ -204,12 +236,12 @@ public class main {
         }
 
     public static void deleteEvent(Scanner input, FileHandler filehandler, int selectedID) {
-        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++){
+        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++) {
             System.out.println(filehandler.getEventList().get(i).getCustomerID());
             if (filehandler.getEventList().get(i).getCustomerID() == selectedID) {
                 System.out.println("Are you sure? You're deleting: " + filehandler.getEventList().get(i).getCustomerID() + "\nType: " + filehandler.getEventList().get(i).getType() + "\nAnswer with: Y/N");
                 String answer = input.next();
-                if (answer.equalsIgnoreCase("y")){
+                if (answer.equalsIgnoreCase("y")) {
                     System.out.println("Successfully deleted: " + filehandler.getEventList().get(i).getCustomerID() + "\nType: " + filehandler.getEventList().get(i).getType());
                     filehandler.getEventList().remove(i);
                 }
@@ -220,12 +252,12 @@ public class main {
     }
 
     public static void deleteFacilitator(Scanner input, FileHandler filehandler, int selectedID) {
-        for(int i = 0; i <= filehandler.getFacilitatorList().size() - 1; i++ ){
+        for (int i = 0; i <= filehandler.getFacilitatorList().size() - 1; i++) {
             System.out.println(filehandler.getFacilitatorList().get(i).getFacilitatorID());
-            if(filehandler.getFacilitatorList().get(i).getFacilitatorID() == selectedID) {
+            if (filehandler.getFacilitatorList().get(i).getFacilitatorID() == selectedID) {
                 System.out.println("Are you sure? You're deleting: " + filehandler.getFacilitatorList().get(i).getName() + "\nAnswer with Y/N");
                 String answer = input.next();
-                if(answer.equalsIgnoreCase("y")) {
+                if (answer.equalsIgnoreCase("y")) {
                     System.out.println("Successfully deleted: " + filehandler.getFacilitatorList().get(i).getName() + "\nWith facilitatorID: " + filehandler.getFacilitatorList().get(i).getFacilitatorID());
                     filehandler.getFacilitatorList().remove(i);
                 }
@@ -235,45 +267,51 @@ public class main {
         }
     }
 
-    public static void editPerson(Scanner input, FileHandler fileHandler, int selectedID){
+    public static void editPerson(Scanner input, FileHandler fileHandler, int selectedID) {
         privateCustomer tempPrivateCustomer = new privateCustomer();
         int indexNumber = 0;
-        
-        for (int i = 0; i <= fileHandler.getPeopleList().size() - 1; i++){
-            if (fileHandler.getPeopleList().get(i).getCustomerId() == selectedID){
+
+        for (int i = 0; i <= fileHandler.getPeopleList().size() - 1; i++) {
+            if (fileHandler.getPeopleList().get(i).getCustomerId() == selectedID) {
                 tempPrivateCustomer = fileHandler.getPeopleList().get(i);
                 indexNumber = i;
             }
         }
         System.out.println("Change the firstName from '" + tempPrivateCustomer.getFirstName() + "' to:");
         String newName = input.next();
-        if(newName != "0"){
+        if (!newName.equalsIgnoreCase("0")) {
             tempPrivateCustomer.setFirstName(newName);
         }
-        System.out.println("Change the lastName from '"+ tempPrivateCustomer.getLastName() +"' to:");
+        System.out.println("Change the lastName from '" + tempPrivateCustomer.getLastName() + "' to:");
         String newLastName = input.next();
-        if(newLastName != "0"){
+        if (!newLastName.equalsIgnoreCase("0")) {
             tempPrivateCustomer.setLastName(newLastName);
         }
-        System.out.println("Change the email from '"+ tempPrivateCustomer.getEmail() +"' to:");
+        System.out.println("Change the email from '" + tempPrivateCustomer.getEmail() + "' to:");
         String newEmail = input.next();
-        if(newEmail != "0"){
+        if (!newEmail.equalsIgnoreCase("0")) {
             tempPrivateCustomer.setEmail(newEmail);
         }
-        System.out.println("Change phone number from '" + tempPrivateCustomer.getNumber() + "' to:");
+        System.out.println("Change phone number from '" + tempPrivateCustomer.getNumber() + "' to");
         int newNumber = input.nextInt();
-        if(newNumber != 0){
+        if (newNumber != 0) {
             tempPrivateCustomer.setNumber(newNumber);
         }
-        System.out.println("Would you like to confirm these changes?");
-        System.out.println(tempPrivateCustomer);
 
-        String option = input.next();
-        if(option.equalsIgnoreCase("y")){
+
+        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
+        String answer = input.next();
+        if (answer.equalsIgnoreCase("y")) {
             fileHandler.getPeopleList().set(indexNumber, tempPrivateCustomer);
             System.out.println("Edited private customer: \n" + fileHandler.getPeopleList().get(indexNumber));
+        } else if (answer.equalsIgnoreCase("N")) {
+            editPerson(input, fileHandler, selectedID);
+        } else if (answer.equalsIgnoreCase("B")) {
+            showData(input, fileHandler);
+        } else {
+            System.out.println("Unknown input - Returning to main menu....");
+            showData(input, fileHandler);
         }
-        showPeopleData(input, fileHandler);
     }
 
     public static void editFirm(Scanner input, FileHandler fileHandler, int selectedID){
@@ -289,32 +327,46 @@ public class main {
 
         System.out.println("Change the name from '" + tempFirm.getName() + "' to:");
         String newName = input.next();
-        if(newName != "0"){
+        if(!newName.equalsIgnoreCase("0")){
             tempFirm.setName(newName);
         }
         System.out.println("Change the email from '"+ tempFirm.getEmail() +"' to:");
         String newEmail = input.next();
-        if(newEmail != "0"){
+        if(!newEmail.equalsIgnoreCase("0")){
             tempFirm.setEmail(newEmail);
         }
         System.out.println("Change the CVR from '" + tempFirm.getCVR() + "' to");
         int newCVR = input.nextInt();
-        if (input.nextInt() != 0){
+        if (newCVR != 0){
             tempFirm.setCVR(newCVR);
         }
         System.out.println("Change phone number from '" + tempFirm.getPhoneNumber() + "' to");
         int newPhoneNumber = input.nextInt();
-        if (input.nextInt() != 0){
+        if (newCVR != 0){
             tempFirm.setPhoneNumber(newPhoneNumber);
         }
         System.out.println("Change the address from '"+ tempFirm.getAddress() +"' to:");
         String newAddress = input.next();
-        if(newAddress != "0"){
+        if(!newAddress.equalsIgnoreCase("0")){
             tempFirm.setAddress(newAddress);
         }
+        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
+        String yn = input.next();
+        if (yn.equalsIgnoreCase("Y"))   {
+            fileHandler.getFirmList().set(indexNumber, tempFirm);
+            System.out.println("Edited firm: \n" + fileHandler.getFirmList().get(indexNumber));
+        }else if (yn.equalsIgnoreCase("N")) {
+            editFirm(input, fileHandler, selectedID);
+        }else if (yn.equalsIgnoreCase("B")) {
+            showData(input, fileHandler);
+        }else{
+            System.out.println("Unknown input - Returning to main menu....");
+            showData(input, fileHandler);
+        }
 
-        fileHandler.getFirmList().set(indexNumber, tempFirm);
-        System.out.println("Edited firm: \n" + fileHandler.getFirmList().get(indexNumber));
+
+       /* fileHandler.getFirmList().set(indexNumber, tempFirm);
+        System.out.println("Edited firm: \n" + fileHandler.getFirmList().get(indexNumber)); */
     }
 
     public static void editFacilitator(Scanner input, FileHandler fileHandler, int selectedID) {
@@ -329,7 +381,7 @@ public class main {
         }
         System.out.println("Change name from ' " + tempFacilitator.getName() + "' to: ");
         String newName = input.next();
-        if (newName != "0") {
+        if (!newName.equalsIgnoreCase("0")){
             tempFacilitator.setName(newName);
         }
         System.out.println("Change phone number from '" + tempFacilitator.getPhoneNumber() + "' to: ");
@@ -339,12 +391,32 @@ public class main {
         }
         System.out.println("Change email from '" + tempFacilitator.getEmail() + "' to: ");
         String newEmail = input.next();
-        if (newEmail != "0") {
+        if (!newEmail.equalsIgnoreCase("0")) {
             tempFacilitator.setEmail(newEmail);
         }
 
-        fileHandler.getFacilitatorList().set(indexNumber, tempFacilitator);
-        System.out.println("Edited firm: \n" + fileHandler.getFacilitatorList().get(indexNumber));
+        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
+        String ans = input.next();
+        if (ans.equalsIgnoreCase("Y"))   {
+            fileHandler.getFacilitatorList().set(indexNumber, tempFacilitator);
+            System.out.println("Edited Facilitator: \n" + fileHandler.getFacilitatorList().get(indexNumber));
+        }else if (ans.equalsIgnoreCase("N")) {
+            editFacilitator(input, fileHandler, selectedID);
+        }else if (ans.equalsIgnoreCase("B")) {
+            showFacilitatorData(input, fileHandler);
+        }else{
+            System.out.println("Unknown input - Returning to main menu....");
+            showFacilitatorData(input, fileHandler);
+        }
+
+    }
+
+    public static void editArrangement(Scanner input, FileHandler fileHandler, int selectedID){
+        Arrangement tempArrangement = new Arrangement();
+
+        for (int i = 0; i<= fileHandler.getArrangementList().size() -1; i++){
+
+        }
     }
 
     public static void newPersonScanner(Scanner input, FileHandler filehandler)   {
@@ -370,44 +442,6 @@ public class main {
             newPersonScanner(input, filehandler);
         }else{
             showPeopleData(input, filehandler);
-        }
-    }
-
-    public static void newEventScanner(Scanner input, FileHandler filehandler){
-
-        int eventID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
-
-        System.out.println("Enter event Type: ");
-        String type = input.next();
-
-        System.out.println("Enter duration: ");
-        double duration = input.nextDouble();
-
-        System.out.println("Enter description: ");
-        input.next();
-        String description = input.nextLine();
-
-        System.out.println("Enter costumer ID: ");
-        int costID = input.nextInt();
-
-        System.out.println("Enter facilitator ID: ");
-        int facilitatorID = input.nextInt();
-
-        System.out.println("Enter weekday: ");
-        String weekDay = input.next();
-
-        System.out.println("Enter time: ");
-        double time = input.nextDouble();
-
-
-        filehandler.getEventList().add(addEvent(eventID, type, duration, description, costID, facilitatorID, weekDay, time));
-        System.out.println("Event has been created with ID: " + eventID);
-        System.out.println("Would you like to create another event? (y/n)");
-        String option = input.next();
-        if(option.toLowerCase().equals("y")){
-            newEventScanner(input, filehandler);
-        }else{
-            mainMenu(input, filehandler);
         }
     }
 
@@ -437,6 +471,114 @@ public class main {
             newFirmScanner(input, filehandler);
         }else{
             showFirmData(input, filehandler);
+        }
+    }
+
+    public static void newArrangementScanner(Scanner input, FileHandler filehandler){
+        int newArrangementID = getFreeArrangementId(filehandler.getArrangementList());
+        int customerID = 0;
+        ArrayList<Integer> tempArray = new ArrayList<Integer>();
+
+        System.out.println("Would you like to create a new Customer or choose an already made one? (N = New / C = Choose)");
+        String option = input.next();
+        if(option.equalsIgnoreCase("n")){
+            System.out.println("Would you like to create a Firm or Private Customer (F = Firm / P = Private Customer)");
+            if(option.equalsIgnoreCase("f")){
+                int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
+
+                System.out.println("Enter the name of the firm: ");
+                String name = input.next();
+
+                System.out.println("Enter the firm's contact email: ");
+                String mail = input.next();
+
+                System.out.println("Enter the CVR-number of the firm: ");
+                int CVR = input.nextInt();
+
+                System.out.println("Enter the firm's contact phonenumber: ");
+                int phoneNumber = input.nextInt();
+
+                System.out.println("Enter the firm's address: ");
+                String address = input.next();
+
+                filehandler.getFirmList().add(addFirm(cosID, name, mail, CVR, phoneNumber, address));
+                System.out.println(name + " has been added with ID:" + cosID);
+                customerID = cosID;
+            }else if(option.equalsIgnoreCase("p")){
+                int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
+
+                System.out.println("Enter costumers firstname: ");
+                String firstName = input.next();
+
+                System.out.println("Enter costumers lastname: ");
+                String lastName = input.next();
+
+                System.out.println("Enter costumers contact mail: ");
+                String mail = input.next();
+
+                System.out.println("Enter costumers phonenumber: ");
+                int phoneNumber = input.nextInt();
+
+                filehandler.getPeopleList().add(addPerson(cosID, firstName, lastName, mail, phoneNumber));
+                System.out.println(firstName + " has been added with ID: " + cosID);
+                customerID = cosID;
+            }
+        }else if(option.equalsIgnoreCase("c")){
+            if (filehandler.getFirmList().size() > 0) {
+                System.out.println("=== Firms ===");
+                for (int i = 0; i <= filehandler.getFirmList().size() - 1; i++) {
+                    System.out.println("ID: " + filehandler.getFirmList().get(i).getCustomerId() + " Name: " + filehandler.getFirmList().get(i).getName());
+                }
+            }
+            if (filehandler.getPeopleList().size() > 0) {
+                System.out.println("=== Private Customers ===");
+                for (int i = 0; i <= filehandler.getPeopleList().size() - 1; i++) {
+                    System.out.println("ID: " + filehandler.getPeopleList().get(i).getCustomerId() + " Name: " + filehandler.getPeopleList().get(i).getFirstName() + " " + filehandler.getPeopleList().get(i).getLastName());
+                }
+            }
+            System.out.println("Give the ID of the chosen Customer: ");
+            customerID = input.nextInt();
+        }
+        System.out.println("Give the date of the beginning of the arrangement (Example: 20/10/2020)");
+        String newDate = input.next();
+
+        Arrangement tempArrangement = new Arrangement(newArrangementID, customerID, newDate, tempArray);
+
+        System.out.println("Create event(s) for the arrangement");
+        String addingEvents = "y";
+        while(addingEvents.equalsIgnoreCase("y")){
+            System.out.println("What type of event is it?: ");
+            String newEventType = input.next();
+            System.out.println("For how long will the event last?");
+            double newEventDuration = input.nextDouble();
+            System.out.println("Give an event description");
+            String newEventDescription = input.next();
+            System.out.println("Choose an Facilitator");
+            for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
+                System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
+            }
+            int newEventFacilitatorID = input.nextInt();
+            System.out.println("What day will it be? (Example: mon, tue, wed)");
+            String newEventWeekDay = input.next();
+            System.out.println("What time on the day will the Event start?");
+            double newEventStartTime = input.nextInt();
+            int eventID = getFreeEventId(filehandler.getEventList());
+            filehandler.getEventList().add(addEvent(eventID, newEventType, newEventDuration, newEventDescription, customerID, newEventFacilitatorID, newEventWeekDay, newEventStartTime));
+            tempArrangement.addEvent(eventID);
+
+            System.out.println("The arrangement now have " + tempArrangement.getEvents().size() +" events, would you like to add more? (Y = Yes, N = No)");
+            addingEvents = input.next();
+        }
+        System.out.println("Is this good? Y / N");
+        System.out.println(tempArrangement);
+        option = input.next();
+        if(option.equalsIgnoreCase("y")){
+            System.out.println("Arrangement has succesfully been created");
+            filehandler.getArrangementList().add(tempArrangement);
+            showArrangement(input, filehandler);
+        }else{
+            System.out.println("Canceled new Arrangement");
+            showArrangement(input,filehandler);
         }
     }
 
@@ -550,37 +692,6 @@ public class main {
             mainMenu(input, fileHandler);
         }
 
-    }
-
-    // skal implementeres
-    public static void deleteFacilitator() {
-        Scanner scan = new Scanner(System.in);
-        ArrayList<Facilitator> arrayFacilitator = new ArrayList<Facilitator>();
-
-        Facilitator fac1 = new Facilitator(44, "Stefan", 33445566, "Stefan@PlanOrgan.dk");
-
-        arrayFacilitator.add(fac1);
-
-        System.out.println("Do you want to delete a Facilitator from an event? Y/N");
-        String anss = scan.next();
-
-        if (anss.equalsIgnoreCase("y")) {
-            System.out.println("Enter the Costumer-ID on the event, the facilitator works on: ");
-            int dele = scan.nextInt();
-
-            for (int i = 0; i <= arrayFacilitator.size() - 1; i++) {
-                System.out.println(arrayFacilitator.get(i).getID());
-                if (arrayFacilitator.get(i).getID() == dele) {
-                    System.out.println("Are you sure? You're deleting: " + arrayFacilitator.get(i).getName() + ", " + arrayFacilitator.get(i).getFacilitatorID() + "\nFrom this event: " + arrayFacilitator.get(i).getID() + "\n Answer with Y/N");
-                    String confirm = scan.next();
-                    if (confirm.equalsIgnoreCase("y")) {
-                        System.out.println("Succesfully deleted: " + arrayFacilitator.get(i).getName() + ", " + arrayFacilitator.get(i).getFacilitatorID() + "\nFrom this event: " + arrayFacilitator.get(i).getFacilitatorID());
-                        arrayFacilitator.remove(i);
-                    }
-                }
-            }
-        } else if (anss.equalsIgnoreCase("N")) {
-        }
     }
 
     public static int getFreeEventId(ArrayList<Event> eventList){

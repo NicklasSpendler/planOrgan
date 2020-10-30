@@ -16,6 +16,10 @@ public class Arrangement {
         this.events = events;
     }
 
+    public Arrangement(){
+
+    }
+
     /*
 
     public double getPrice(){
@@ -69,4 +73,7 @@ public class Arrangement {
         this.events = events;
     }
 
+    public void addEvent(Integer eventid){
+        events.add(eventid);
+    }
 }
