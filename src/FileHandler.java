@@ -232,7 +232,7 @@ public class FileHandler {
             FileWriter myWriter = new FileWriter("eventsData.txt", true);
             for(int i = 0; i <= events.size() - 1; i++){
 
-                myWriter.write(events.get(i).getType() + " " + events.get(i).getDescription() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerID() + " " + events.get(i).getFacilitatorID() + " " + events.get(i).getWeekDay() + " " + events.get(i).getTime());
+                myWriter.write(events.get(i).getID() + " " + events.get(i).getType() + " " + events.get(i).getDescription() + " " + events.get(i).getDuration() + " " + events.get(i).getCustomerID() + " " + events.get(i).getFacilitatorID() + " " + events.get(i).getWeekDay() + " " + events.get(i).getTime());
                 if(i != events.size() - 1){
                     myWriter.write("\n");
                 }
@@ -294,6 +294,14 @@ public class FileHandler {
         }
     }
 
+    public void deleteFacilitatorByID (int selectedID)  {
+        for(int i = 0; i <= facilitatorList.size() - 1; i++)    {
+            if (facilitatorList.get(i).getFacilitatorID() == selectedID)    {
+                facilitatorList.remove(i);
+            }
+        }
+    }
+
 
     // treverses through peopleList and firmList to find the ID that matches the paramter.
     public Object getCustomerByID(int id){
@@ -326,6 +334,7 @@ public class FileHandler {
         }
         return null;
     }
+
     public Event getEventByID(int id) {
         for (int i = 0; i <= eventList.size() - 1; i++){
             if (eventList.get(i).getID() == id){

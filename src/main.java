@@ -19,7 +19,7 @@ public class main {
         filehandler.readEventsFromFile();
         filehandler.readFacilitatorFromFile();
         filehandler.readFirmFromFile();
-
+        /*
         filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "lol", 8, "lol", 1, 1, "mon", 8));
         filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "lol", 8, "lol", 1, 1, "mon", 8));
 
@@ -28,6 +28,8 @@ public class main {
         tempIds.add(2);
 
         filehandler.getArrangementList().add(addArrangement(getFreeArrangementId(filehandler.getArrangementList()),1,"1", tempIds));
+
+         */
 
         mainMenu(input, filehandler);
 
@@ -65,10 +67,10 @@ public class main {
 
     public static void showData(Scanner input, FileHandler filehandler){
         System.out.println("=======Show Data=======");
-        System.out.println("P: Person");
-        System.out.println("F: Firm");
-        System.out.println("A: Arrangement");
-        System.out.println("I: Facilitator");
+        System.out.println("P: Person[" + filehandler.getPeopleList().size() + "]");
+        System.out.println("F: Firm[" + filehandler.getFirmList().size() + "]");
+        System.out.println("A: Arrangement[" + filehandler.getArrangementList().size() + "]");
+        System.out.println("I: Facilitator[" + filehandler.getFacilitatorList().size() + "]");
         System.out.println("B: Back");
 
         String option = input.next();
@@ -102,7 +104,7 @@ public class main {
             int selectedId = input.nextInt();
             deleteFirm(input, filehandler, selectedId);
         }else if(option.equalsIgnoreCase("b")){
-            mainMenu(input, filehandler);
+            showData(input, filehandler);
         } else if (option.equalsIgnoreCase("a")){
             newFirmScanner(input, filehandler);
         }else if(option.equalsIgnoreCase("E")){
@@ -110,7 +112,6 @@ public class main {
             int chooseID = input.nextInt();
             editFirm(input, filehandler, chooseID);
         }
-        System.out.println();
     }
 
     public static void showFacilitatorData(Scanner input, FileHandler filehandler){
@@ -119,7 +120,7 @@ public class main {
             System.out.println("There's No Facilitator Data");
         }else {
             for (int i = 0; i <= filehandler.getFacilitatorList().size() - 1; i++) {
-                System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getFacilitatorID() + " Name: " + filehandler.getFacilitatorList().get(i).getName() + "Phone number: " + filehandler.getFacilitatorList().get(i).getPhoneNumber() + "Email: " + filehandler.getFacilitatorList().get(i).getEmail());
+                System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getFacilitatorID() + " Name: " + filehandler.getFacilitatorList().get(i).getName() + " Phone number: " + filehandler.getFacilitatorList().get(i).getPhoneNumber() + " Email: " + filehandler.getFacilitatorList().get(i).getEmail());
             }
         }
         System.out.println("A = Add a new Facilitator | D = Delete a Facilitator | E = Edit a Facilitator | B = back");
@@ -379,7 +380,7 @@ public class main {
                 indexNumber = i;
             }
         }
-        System.out.println("Change name from ' " + tempFacilitator.getName() + "' to: ");
+        System.out.println("Change name from '" + tempFacilitator.getName() + "' to: ");
         String newName = input.next();
         if (!newName.equalsIgnoreCase("0")){
             tempFacilitator.setName(newName);
@@ -411,11 +412,45 @@ public class main {
 
     }
 
-    public static void editArrangement(Scanner input, FileHandler fileHandler, int selectedID){
+    public static void editArrangement(Scanner input, FileHandler filehandler, int selectedID){
         Arrangement tempArrangement = new Arrangement();
 
-        for (int i = 0; i<= fileHandler.getArrangementList().size() -1; i++){
+        for (int i = 0; i<= filehandler.getArrangementList().size() -1; i++){
+            if(filehandler.getArrangementList().get(i).getId() == selectedID){
+                tempArrangement = filehandler.getArrangementList().get(i);
+            }
+        }
+        System.out.println("Arrangement ID: " + tempArrangement.getId() + " CustomerID " + tempArrangement.getCustomerID() + " Date: " + tempArrangement.getDate() + " The arrangements have " + tempArrangement.getEvents().size() + " events");
 
+        System.out.println("A = Add new event | E = Edit an event | D = delete an event | B = Back");
+        String option = input.next();
+        if(option.equalsIgnoreCase("a")){
+            int customerID = getFreeEventId(filehandler.getEventList());
+            System.out.println("What type of event is it?: ");
+            String newEventType = input.next();
+            System.out.println("For how long will the event last?");
+            double newEventDuration = input.nextDouble();
+            System.out.println("Give an event description");
+            String newEventDescription = input.next();
+            System.out.println("Choose an Facilitator");
+            for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
+                System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
+            }
+            int newEventFacilitatorID = input.nextInt();
+            System.out.println("What day will it be? (Example: mon, tue, wed)");
+            String newEventWeekDay = input.next();
+            System.out.println("What time on the day will the Event start?");
+            double newEventStartTime = input.nextInt();
+            int eventID = getFreeEventId(filehandler.getEventList());
+            filehandler.getEventList().add(addEvent(eventID, newEventType, newEventDuration, newEventDescription, customerID, newEventFacilitatorID, newEventWeekDay, newEventStartTime));
+            tempArrangement.addEvent(eventID);
+
+        }else if(option.equalsIgnoreCase("e")){
+
+        }else if(option.equalsIgnoreCase("d")){
+
+        }else if(option.equalsIgnoreCase("b")){
+            showArrangement(input, filehandler);
         }
     }
 
@@ -445,6 +480,8 @@ public class main {
         }
     }
 
+
+    // Den skipper firm's contact email !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public static void newFirmScanner(Scanner input, FileHandler filehandler) {
         int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
 
@@ -483,6 +520,7 @@ public class main {
         String option = input.next();
         if(option.equalsIgnoreCase("n")){
             System.out.println("Would you like to create a Firm or Private Customer (F = Firm / P = Private Customer)");
+            option = input.next();
             if(option.equalsIgnoreCase("f")){
                 int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
 
