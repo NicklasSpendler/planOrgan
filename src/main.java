@@ -16,13 +16,6 @@ public class main {
         // create files that doesnt exsist
         filehandler.createFiles();
 
-        double test = 2.0;
-
-        NumberFormat format = NumberFormat.getInstance(Locale.FRANCE);
-        Number number = format.parse("2.8");
-        double d = number.doubleValue();
-        System.out.println(test);
-
         filehandler.readArrangementFromFile();
         filehandler.readPeopleFromFile();
         filehandler.readEventsFromFile();
@@ -77,7 +70,7 @@ public class main {
 
     public static void showData(Scanner input, FileHandler filehandler){
         System.out.println("=======Show Data=======");
-        System.out.println("P: Person[" + filehandler.getPeopleList().size() + "]");
+        System.out.println("P: Private Customer[" + filehandler.getPeopleList().size() + "]");
         System.out.println("F: Firm[" + filehandler.getFirmList().size() + "]");
         System.out.println("A: Arrangement[" + filehandler.getArrangementList().size() + "]");
         System.out.println("I: Facilitator[" + filehandler.getFacilitatorList().size() + "]");
@@ -198,6 +191,7 @@ public class main {
     }
 
     // skal ikke bruges
+    /*
     public static void showEventData(Scanner input, FileHandler filehandler) {
         System.out.println("=Show Event=");
         for (int i = 0; i <= filehandler.getEventList().size() - 1; i++) {
@@ -214,6 +208,7 @@ public class main {
             mainMenu(input, filehandler);
         }
     }
+     */
 
     public static void deletePerson(Scanner input, FileHandler filehandler, int selectedID) {
             for (int i = 0; i <= filehandler.getPeopleList().size() - 1; i++){
@@ -246,7 +241,7 @@ public class main {
             showFirmData(input, filehandler);
         }
 
-    public static void deleteEvent(Scanner input, FileHandler filehandler, int selectedID) {
+    public static void deleteEvent(Scanner input, FileHandler filehandler, int selectedID, int arrangementID) {
         for (int i = 0; i <= filehandler.getEventList().size() - 1; i++) {
             System.out.println(filehandler.getEventList().get(i).getCustomerID());
             if (filehandler.getEventList().get(i).getCustomerID() == selectedID) {
@@ -259,7 +254,7 @@ public class main {
 
             }
         }
-        showEventData(input, filehandler);
+        editArrangement(input, filehandler, arrangementID);
     }
 
     public static void deleteFacilitator(Scanner input, FileHandler filehandler, int selectedID) {
@@ -424,7 +419,6 @@ public class main {
 
     public static void editArrangement(Scanner input, FileHandler filehandler, int selectedID){
         Arrangement tempArrangement = new Arrangement();
-
         for (int i = 0; i<= filehandler.getArrangementList().size() -1; i++){
             if(filehandler.getArrangementList().get(i).getId() == selectedID){
                 tempArrangement = filehandler.getArrangementList().get(i);
@@ -443,6 +437,7 @@ public class main {
             System.out.println("Give an event description");
             String newEventDescription = input.next();
             System.out.println("Choose an Facilitator");
+            // Show facilitators
             for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
                 System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
             }
@@ -460,16 +455,26 @@ public class main {
             }
             System.out.println("Chose the event by ID");
             int chosenID = input.nextInt();
-            editEvent(input, filehandler, chosenID);
+            editEvent(input, filehandler, chosenID, selectedID);
         }else if(option.equalsIgnoreCase("d")){
-
+            for (int i = 0; i <= tempArrangement.getEvents().size()-1; i++){
+                System.out.println(filehandler.getEventByID(tempArrangement.getEvents().get(i)));
+            }
+            System.out.println("Choose the ID of the event to delete or type '-1' to go back");
+            int chosenID = input.nextInt();
+            if(chosenID != -1){
+                deleteEvent(input, filehandler, chosenID, selectedID);
+                editArrangement(input, filehandler, selectedID);
+            }else{
+                editArrangement(input, filehandler, selectedID);
+            }
         }else if(option.equalsIgnoreCase("b")){
             showArrangement(input, filehandler);
         }
         editArrangement(input, filehandler, selectedID);
     }
 
-    public static void editEvent(Scanner input, FileHandler filehandler, int selectedID) {
+    public static void editEvent(Scanner input, FileHandler filehandler, int selectedID, int arrangementID) {
         Event tempEvent = new Event();
         int indexNumber = 0;
 
@@ -504,18 +509,19 @@ public class main {
         if (newTime != 0) {
             tempEvent.setTime(newTime);
         }
-        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
+        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to show the Arrangement");
         String ans = input.next();
         if (ans.equalsIgnoreCase("y"))  {
             filehandler.getEventList().set(indexNumber, tempEvent);
             System.out.println("Edited Event: \n" + filehandler.getEventList().get(indexNumber));
         }else if (ans.equalsIgnoreCase("N")) {
-            editEvent(input, filehandler, selectedID);
+            editEvent(input, filehandler, selectedID, arrangementID);
         }else if (ans.equalsIgnoreCase("B")) {
-            showEventData(input, filehandler);
+            editArrangement(input, filehandler, arrangementID);
         }else{
             System.out.println("Unknown input - Returning to main menu....");
-            showEventData(input, filehandler);
+            mainMenu(input, filehandler);
+            //showEventData(input, filehandler);
         }
     }
 

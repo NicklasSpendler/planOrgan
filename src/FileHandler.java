@@ -12,10 +12,10 @@ import java.util.Scanner;
 
 public class FileHandler {
 
-    private ArrayList<privateCustomer> peopleList = new ArrayList<privateCustomer>();
+    private static ArrayList<privateCustomer> peopleList = new ArrayList<privateCustomer>();
     private ArrayList<Event> eventList = new ArrayList<Event>();
     private ArrayList<Facilitator> facilitatorList = new ArrayList<Facilitator>();
-    private ArrayList<Firm> firmList = new ArrayList<Firm>();
+    private static ArrayList<Firm> firmList = new ArrayList<Firm>();
     private ArrayList<Arrangement> arrangementList = new ArrayList<Arrangement>();
 
     public FileHandler() {
@@ -312,7 +312,7 @@ public class FileHandler {
 
 
     // treverses through peopleList and firmList to find the ID that matches the paramter.
-    public Object getCustomerByID(int id){
+    public static Object getCustomerByID(int id){
         for (int i = 0; i <= peopleList.size() -1; i++){
             if(peopleList.get(i).getCustomerId() == id){
                 return peopleList.get(i);

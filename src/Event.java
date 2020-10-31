@@ -1,5 +1,4 @@
 public class Event {
-
     private int id;
     private String type;
     private double duration;
@@ -21,7 +20,6 @@ public class Event {
     }
 
     public Event(){
-
     }
 
     @Override
