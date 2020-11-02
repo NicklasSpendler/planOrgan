@@ -187,12 +187,16 @@ public class main {
 
         if(option.equalsIgnoreCase("a")){
             newArrangementScanner(input, filehandler);
-        }if(option.equalsIgnoreCase("b")){
+        }else if(option.equalsIgnoreCase("b")){
             showData(input, filehandler);
-        }if(option.equalsIgnoreCase("e")){
+        }else if(option.equalsIgnoreCase("e")){
             System.out.println("Give the ID of the Arrangement you would like to edit");
             int selectedID = input.nextInt();
             editArrangement(input, filehandler, selectedID);
+        }else if(option.equalsIgnoreCase("d")){
+            System.out.println("Give the ID of the Arrangement you would like to delete");
+            int selectedID = input.nextInt();
+            deleteArrangement(input, filehandler, selectedID);
         }
     }
 
@@ -277,6 +281,26 @@ public class main {
             }
             showFacilitatorData(input, filehandler);
         }
+    }
+
+    public static void deleteArrangement(Scanner input, FileHandler fileHandler, int selectedID){
+        for (int i = 0; i <= fileHandler.getArrangementList().size() -1; i++){
+
+            if(fileHandler.getArrangementList().get(i).getId() == selectedID){
+
+                for (int j = 0; j <= fileHandler.getEventList().size() -1; j++){
+                    for (int k = 0; k <= fileHandler.getArrangementList().get(i).getEvents().size() - 1; k++){
+                        if(fileHandler.getEventList().get(j).getID() == fileHandler.getArrangementList().get(i).getEvents().get(k)){
+                            fileHandler.getEventList().remove(j);
+                        }
+                    }
+                }
+
+                fileHandler.getArrangementList().remove(i);
+            }
+
+        }
+        showArrangement(input,fileHandler);
     }
 
     public static void editPerson(Scanner input, FileHandler fileHandler, int selectedID) {
