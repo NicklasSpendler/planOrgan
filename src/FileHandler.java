@@ -18,10 +18,6 @@ public class FileHandler {
     private static ArrayList<Firm> firmList = new ArrayList<Firm>();
     private ArrayList<Arrangement> arrangementList = new ArrayList<Arrangement>();
 
-    public FileHandler() {
-
-    }
-
     public void readEventsFromFile(){
         ArrayList<Event> tempArray = new ArrayList<Event>();
 
@@ -113,10 +109,8 @@ public class FileHandler {
     public void readArrangementFromFile(){
         ArrayList<Arrangement> arrangementArray = new ArrayList<Arrangement>();
 
-
-
         try {
-            File firmFile = new File("ArragementData.txt");
+            File firmFile = new File("ArrangementData.txt");
             Scanner myReader = new Scanner(firmFile);
 
             while(myReader.hasNextLine()){
@@ -174,13 +168,11 @@ public class FileHandler {
     }
 
     public void writeArrangementToFile(ArrayList<Arrangement> arragementList){
-
-
         try {
-            FileWriter deleteContentWriter = new FileWriter("ArragementData.txt", false);
+            FileWriter deleteContentWriter = new FileWriter("ArrangementData.txt", false);
             deleteContentWriter.write("");
 
-            FileWriter myWriter = new FileWriter("ArragementData.txt", true);
+            FileWriter myWriter = new FileWriter("ArrangementData.txt", true);
             myWriter.write("");
             for(int i = 0; i <= arragementList.size() - 1; i++){
                 // writes variables into file in a line.
@@ -190,9 +182,7 @@ public class FileHandler {
                     tempArray = tempArray + arragementList.get(i).getEvents().get(k);
 
                     if(k != arragementList.get(i).getEvents().size () -1){
-
                         tempArray = tempArray + ",";
-
                     }
                 }
                 String eventList;
@@ -343,6 +333,18 @@ public class FileHandler {
         return null;
     }
 
+    public Arrangement getArrangementByID(int id){
+        Arrangement tempArrangement = new Arrangement();
+
+        for (int i = 0; i<= getArrangementList().size() -1; i++){
+            if(getArrangementList().get(i).getId() == id){
+                tempArrangement = getArrangementList().get(i);
+            }
+        }
+
+        return tempArrangement;
+    }
+
     public Event getEventByID(int id) {
         for (int i = 0; i <= eventList.size() - 1; i++){
             if (eventList.get(i).getID() == id){
@@ -357,7 +359,7 @@ public class FileHandler {
         File firmFile = new File("firmData.txt");
         File facilitator = new File("facilitatorData.txt");
         File event = new File("eventsData.txt");
-        File Arrangement = new File("ArragementData.txt");
+        File Arrangement = new File("ArrangementData.txt");
         if(!personFile.exists()){
              FileWriter myWriter = new FileWriter("peopleData.txt", true);
         }
@@ -371,7 +373,7 @@ public class FileHandler {
             FileWriter myWriter = new FileWriter("eventsData.txt", true);
         }
         if(!Arrangement.exists()){
-            FileWriter myWriter = new FileWriter("ArragementData.txt", true);
+            FileWriter myWriter = new FileWriter("ArrangementData.txt", true);
         }
     }
 
