@@ -54,7 +54,9 @@ public class main {
     public static void mainMenu(Scanner input, FileHandler filehandler){
         System.out.println("====== Main Menu ======");
         System.out.println("S: Show Data");
+        System.out.println("A: Search data");
         System.out.println("D: Save Data");
+        System.out.println("H: Help menu");
         System.out.println("Q: Quit");
         System.out.println("=======================");
 
@@ -65,6 +67,10 @@ public class main {
         }else if (option.equalsIgnoreCase("d")){
             filehandler.saveProgress();
             mainMenu(input, filehandler);
+        }else if(option.equalsIgnoreCase("a")){
+            searchList(input, filehandler);
+        }else if (option.equalsIgnoreCase("H")){
+            helpMenu(input, filehandler);
         }
     }
 
@@ -111,7 +117,7 @@ public class main {
         } else if (option.equalsIgnoreCase("a")){
             newFirmScanner(input, filehandler);
         }else if(option.equalsIgnoreCase("E")){
-            System.out.println("Which facilitator would you like to edit? Give facilitator ID");
+            System.out.println("Which Firm would you like to edit? Give Firm ID");
             int chooseID = input.nextInt();
             editFirm(input, filehandler, chooseID);
         }
@@ -552,7 +558,6 @@ public class main {
     }
 
 
-    // Den skipper firm's contact email !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public static void newFirmScanner(Scanner input, FileHandler filehandler) {
         int cosID = getFreeCostumerId(filehandler.getPeopleList(), filehandler.getFirmList());
 
@@ -748,11 +753,37 @@ public class main {
         return tempArrangement;
     }
 
+    public static void helpMenu(Scanner input, FileHandler fileHandler) {
+        System.out.println("What would like to get some information about?");
+        System.out.println("S: Show Data");
+        System.out.println("C: Search Data");
+        System.out.println("D: Save Data");
+        System.out.println("Q: Quit");
+        String info = input.next();
+
+        if (info.equalsIgnoreCase("S")) {
+            System.out.println("In the show data menu, it's possible to see all the information we got in the system. From here, it is possible to go further and edit, delete and add information.\nWhen you're editing, you can skip the current point by pressing 0. (This could be useful, if you want to edit name, but want to keep the rest of the information.)");
+        }else if (info.equalsIgnoreCase("C"))   {
+            System.out.println("In the search menu, it's possible to search for a keyword, and get all the outputs that contains this. If you dont type anything, you would get all the information we got in the system.");
+        }else if (info.equalsIgnoreCase("D")) {
+            System.out.println("In the save data menu, it's possible to save all the data, you just made into a txt file.");
+        }else if (info.equalsIgnoreCase("Q"))   {
+            System.out.println("By pressing 'Q', you would shut down the program.");
+        }
+        System.out.println("Do you need help with anything else? (Y = Help menu / N = Main Menu)");
+        String option = input.next();
+        if(option.equalsIgnoreCase("y")){
+            helpMenu(input, fileHandler);
+        }else if(option.equalsIgnoreCase("n")){
+            mainMenu(input, fileHandler);
+        }
+    }
+
     //Search Function
-    public static void searchList(Scanner input, FileHandler fileHandler){
+    public static void searchList(Scanner input, FileHandler fileHandler)   {
         ArrayList<Object> searchResult = new ArrayList<Object>();
-        System.out.println("What do you want to search for? (Spaces allowed)");
-        String search = input.nextLine().toLowerCase();
+        System.out.println("What do you want to search for? ");
+        String search = input.next().toLowerCase();
 
         for(int i = 0; i <= fileHandler.getPeopleList().size() - 1; i++){
             if(fileHandler.getPeopleList().get(i).getFirstName().toLowerCase().contains(search) || fileHandler.getPeopleList().get(i).getLastName().toLowerCase().contains(search) || fileHandler.getPeopleList().get(i).getEmail().toLowerCase().contains(search)){
@@ -800,7 +831,6 @@ public class main {
             System.out.println("Invalid input");
             mainMenu(input, fileHandler);
         }
-
     }
 
     public static int getFreeEventId(ArrayList<Event> eventList){
