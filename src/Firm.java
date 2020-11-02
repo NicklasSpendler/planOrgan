@@ -22,7 +22,7 @@ public class Firm {
 
     @Override
     public String toString() {
-        return "Firm: " +
+        return "\nFirm: " +
                 "\nCustomer id: " + customerId +
                 "\nFirm name: " + name +
                 "\nEmail: " + email +

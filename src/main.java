@@ -207,7 +207,6 @@ public class main {
 
     public static void deletePerson(Scanner input, FileHandler filehandler, int selectedID) {
             for (int i = 0; i <= filehandler.getPeopleList().size() - 1; i++){
-                System.out.println(filehandler.getPeopleList().get(i).getCustomerId());
                 if (filehandler.getPeopleList().get(i).getCustomerId() == selectedID) {
                     System.out.println("Are you sure? You're deleting: " + filehandler.getPeopleList().get(i).getFirstName() + "\nAnswer with Y/N");
                     String answer = input.next();
@@ -216,9 +215,8 @@ public class main {
                         filehandler.getPeopleList().remove(i);
                     }
                 }
-                showPeopleData(input, filehandler);
             }
-
+        showPeopleData(input, filehandler);
         }
 
     // Deletes firm with chosen ID
@@ -264,8 +262,8 @@ public class main {
                 }
 
             }
-            showFacilitatorData(input, filehandler);
         }
+        showFacilitatorData(input, filehandler);
     }
 
     public static void deleteArrangement(Scanner input, FileHandler fileHandler, int selectedID){
@@ -294,48 +292,48 @@ public class main {
         showArrangement(input,fileHandler);
     }
 
-    public static void editPerson(Scanner input, FileHandler fileHandler, int selectedID) {
+    public static void editPerson(Scanner input, FileHandler fileHandler, int selectedID){
         privateCustomer tempPrivateCustomer = new privateCustomer();
         int indexNumber = 0;
 
-        for (int i = 0; i <= fileHandler.getPeopleList().size() - 1; i++) {
-            if (fileHandler.getPeopleList().get(i).getCustomerId() == selectedID) {
+        for (int i = 0; i <= fileHandler.getPeopleList().size() - 1; i++){
+            if (fileHandler.getPeopleList().get(i).getCustomerId() == selectedID){
                 tempPrivateCustomer = fileHandler.getPeopleList().get(i);
                 indexNumber = i;
             }
         }
         System.out.println("Change the firstName from '" + tempPrivateCustomer.getFirstName() + "' to:");
         String newName = input.next();
-        if (!newName.equalsIgnoreCase("0")) {
+        if(!newName.equalsIgnoreCase("0")){
             tempPrivateCustomer.setFirstName(newName);
         }
-        System.out.println("Change the lastName from '" + tempPrivateCustomer.getLastName() + "' to:");
+        System.out.println("Change the lastName from '"+ tempPrivateCustomer.getLastName() +"' to:");
         String newLastName = input.next();
-        if (!newLastName.equalsIgnoreCase("0")) {
+        if(!newLastName.equalsIgnoreCase("0")){
             tempPrivateCustomer.setLastName(newLastName);
         }
-        System.out.println("Change the email from '" + tempPrivateCustomer.getEmail() + "' to:");
+        System.out.println("Change the email from '"+ tempPrivateCustomer.getEmail() +"' to:");
         String newEmail = input.next();
-        if (!newEmail.equalsIgnoreCase("0")) {
+        if(!newEmail.equalsIgnoreCase("0")){
             tempPrivateCustomer.setEmail(newEmail);
         }
         System.out.println("Change phone number from '" + tempPrivateCustomer.getNumber() + "' to");
         int newNumber = input.nextInt();
-        if (newNumber != 0) {
+        if(newNumber != 0){
             tempPrivateCustomer.setNumber(newNumber);
         }
 
 
-        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
+        System.out.println("Would you like to confirm these changes?" + tempPrivateCustomer + "\nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
         String answer = input.next();
         if (answer.equalsIgnoreCase("y")) {
             fileHandler.getPeopleList().set(indexNumber, tempPrivateCustomer);
             System.out.println("Edited private customer: \n" + fileHandler.getPeopleList().get(indexNumber));
-        } else if (answer.equalsIgnoreCase("N")) {
-            editPerson(input, fileHandler, selectedID);
-        } else if (answer.equalsIgnoreCase("B")) {
+        }else if (answer.equalsIgnoreCase("N")) {
+            editPerson(input,fileHandler,selectedID);
+        }else if (answer.equalsIgnoreCase("B")) {
             showData(input, fileHandler);
-        } else {
+        }else{
             System.out.println("Unknown input - Returning to main menu....");
             showData(input, fileHandler);
         }
@@ -377,7 +375,7 @@ public class main {
         if(!newAddress.equalsIgnoreCase("0")){
             tempFirm.setAddress(newAddress);
         }
-        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
+        System.out.println("Would you like to confirm these changes?\n" + tempFirm + "\nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
         String yn = input.next();
         if (yn.equalsIgnoreCase("Y"))   {
             fileHandler.getFirmList().set(indexNumber, tempFirm);
@@ -406,7 +404,7 @@ public class main {
                 indexNumber = i;
             }
         }
-        System.out.println("Change name from '" + tempFacilitator.getName() + "' to: ");
+        System.out.println("Change name from ' " + tempFacilitator.getName() + "' to: ");
         String newName = input.next();
         if (!newName.equalsIgnoreCase("0")){
             tempFacilitator.setName(newName);
@@ -422,7 +420,7 @@ public class main {
             tempFacilitator.setEmail(newEmail);
         }
 
-        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
+        System.out.println("Would you like to confirm these changes?\n" + tempFacilitator + " \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to the Main Menu");
         String ans = input.next();
         if (ans.equalsIgnoreCase("Y"))   {
             fileHandler.getFacilitatorList().set(indexNumber, tempFacilitator);
@@ -437,6 +435,58 @@ public class main {
         }
 
     }
+
+    public static void editEvent(Scanner input, FileHandler filehandler, int selectedID, int arrangementID) {
+        Event tempEvent = new Event();
+        int indexNumber = 0;
+
+        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++)    {
+            if (filehandler.getEventList().get(i).getCustomerID() == selectedID)    {
+                tempEvent = filehandler.getEventList().get(i);
+                indexNumber = i;
+            }
+        }
+        System.out.println("Change type from: " + tempEvent.getType() + " to: ");
+        String newType = input.next();
+        if (!newType.equalsIgnoreCase("0")) {
+            tempEvent.setType(newType);
+        }
+        System.out.println("Change the duration from: " + tempEvent.getDuration() + " to: ");
+        double newDuration = input.nextDouble();
+        if (newDuration != 0)  {
+            tempEvent.setDuration(newDuration);
+        }
+        System.out.println("Change the description from: " + tempEvent.getDescription() + " to: ");
+        String newDesc = input.next();
+        if (!newDesc.equals("0"))   {
+            tempEvent.setDescription(newDesc);
+        }
+        System.out.println("Change the weekday from: " + tempEvent.getWeekDay() + " to: ");
+        String newWeekDay = input.next();
+        if (!newWeekDay.equalsIgnoreCase("0"))    {
+            tempEvent.setWeekDay(newWeekDay);
+        }
+        System.out.println("Change the time form: " + tempEvent.getTime() + " to: ");
+        double newTime = input.nextDouble();
+        if (newTime != 0) {
+            tempEvent.setTime(newTime);
+        }
+        System.out.println("Would you like to confirm these changes?\n" + tempEvent + "\nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to show the Arrangement");
+        String ans = input.next();
+        if (ans.equalsIgnoreCase("y"))  {
+            filehandler.getEventList().set(indexNumber, tempEvent);
+            System.out.println("Edited Event: \n" + filehandler.getEventList().get(indexNumber));
+        }else if (ans.equalsIgnoreCase("N")) {
+            editEvent(input, filehandler, selectedID, arrangementID);
+        }else if (ans.equalsIgnoreCase("B")) {
+            editArrangement(input, filehandler, arrangementID);
+        }else{
+            System.out.println("Unknown input - Returning to main menu....");
+            mainMenu(input, filehandler);
+            //showEventData(input, filehandler);
+        }
+    }
+
 
     public static void editArrangement(Scanner input, FileHandler filehandler, int selectedID){
         Arrangement tempArrangement = new Arrangement();
@@ -494,57 +544,6 @@ public class main {
             showArrangement(input, filehandler);
         }
         editArrangement(input, filehandler, selectedID);
-    }
-
-    public static void editEvent(Scanner input, FileHandler filehandler, int selectedID, int arrangementID) {
-        Event tempEvent = new Event();
-        int indexNumber = 0;
-
-        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++)    {
-            if (filehandler.getEventList().get(i).getID() == selectedID)    {
-                tempEvent = filehandler.getEventList().get(i);
-                indexNumber = i;
-            }
-        }
-        System.out.println("Change type from: " + tempEvent.getType() + " to: ");
-        String newType = input.next();
-        if (!newType.equalsIgnoreCase("0")) {
-            tempEvent.setType(newType);
-        }
-        System.out.println("Change the duration from: " + tempEvent.getDuration() + " to: ");
-        double newDuration = input.nextDouble();
-        if (newDuration != 0)  {
-            tempEvent.setDuration(newDuration);
-        }
-        System.out.println("Change the description from: " + tempEvent.getDescription() + " to: ");
-        String newDesc = input.next();
-        if (!newDesc.equals("0"))   {
-            tempEvent.setDescription(newDesc);
-        }
-        System.out.println("Change the weekday from: " + tempEvent.getWeekDay() + " to: ");
-        String newWeekDay = input.next();
-        if (!newWeekDay.equalsIgnoreCase("0"))    {
-            tempEvent.setWeekDay(newWeekDay);
-        }
-        System.out.println("Change the time form: " + tempEvent.getTime() + " to: ");
-        double newTime = input.nextDouble();
-        if (newTime != 0) {
-            tempEvent.setTime(newTime);
-        }
-        System.out.println("Would you like to confirm these changes? \nPress Y: for yes \nPress N: To remake the edit \nPress B: For going back to show the Arrangement");
-        String ans = input.next();
-        if (ans.equalsIgnoreCase("y"))  {
-            filehandler.getEventList().set(indexNumber, tempEvent);
-            System.out.println("Edited Event: \n" + filehandler.getEventList().get(indexNumber));
-        }else if (ans.equalsIgnoreCase("N")) {
-            editEvent(input, filehandler, selectedID, arrangementID);
-        }else if (ans.equalsIgnoreCase("B")) {
-            editArrangement(input, filehandler, arrangementID);
-        }else{
-            System.out.println("Unknown input - Returning to main menu....");
-            mainMenu(input, filehandler);
-            //showEventData(input, filehandler);
-        }
     }
 
     public static void newPersonScanner(Scanner input, FileHandler filehandler)   {

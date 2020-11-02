@@ -17,7 +17,7 @@ public class Facilitator {
 
     @Override
     public String toString() {
-        return "Facilitator: " +
+        return "\nFacilitator: " +
                 "\nName: " + name +
                 "\nPhone Number: " + phoneNumber +
                 "\nEmail: " + email + "\n=================================";

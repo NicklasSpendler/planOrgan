@@ -42,7 +42,7 @@ public class Arrangement {
 
     @Override
     public String toString() {
-        return "Arrangement:" +
+        return "\nArrangement:" +
                 "\nID: " + id +
                 "\nCustomer id: " + customerID +
                 "\nDate: " + date +

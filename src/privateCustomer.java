@@ -18,7 +18,8 @@ public class privateCustomer {
     }
 
     public String toString() {
-        return "Private customer: "+
+        return "\nPrivate customer: "+
+                "\nID: " + customerId +
                 "\nFirst name: " + firstName +
                 "\nLast name: " + lastName +
                 "\nEmail: " + email +
