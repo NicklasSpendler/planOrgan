@@ -441,7 +441,7 @@ public class main {
         int indexNumber = 0;
 
         for (int i = 0; i <= filehandler.getEventList().size() - 1; i++)    {
-            if (filehandler.getEventList().get(i).getCustomerID() == selectedID)    {
+            if (filehandler.getEventList().get(i).getID() == selectedID)    {
                 tempEvent = filehandler.getEventList().get(i);
                 indexNumber = i;
             }
@@ -508,7 +508,7 @@ public class main {
             double newEventDuration = input.nextDouble();
             System.out.println("Give an event description");
             String newEventDescription = input.next();
-            System.out.println("Choose an Facilitator");
+            System.out.println("Choose a Facilitator");
             // Show facilitators
             for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
                 System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
@@ -681,7 +681,7 @@ public class main {
             double newEventDuration = input.nextDouble();
             System.out.println("Give an event description");
             String newEventDescription = input.next();
-            System.out.println("Choose an Facilitator");
+            System.out.println("Choose a Facilitator");
             for (int i = 0; i <= filehandler.getFacilitatorList().size() -1; i++){
                 System.out.println("ID: " + filehandler.getFacilitatorList().get(i).getID() + " Name: " + filehandler.getFacilitatorList().get(i).getName());
             }
