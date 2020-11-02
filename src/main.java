@@ -440,8 +440,8 @@ public class main {
         Event tempEvent = new Event();
         int indexNumber = 0;
 
-        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++)    {
-            if (filehandler.getEventList().get(i).getID() == selectedID)    {
+        for (int i = 0; i <= filehandler.getEventList().size() - 1; i++) {
+            if (filehandler.getEventList().get(i).getID() == selectedID) {
                 tempEvent = filehandler.getEventList().get(i);
                 indexNumber = i;
             }
@@ -488,10 +488,10 @@ public class main {
     }
 
 
-    public static void editArrangement(Scanner input, FileHandler filehandler, int selectedID){
+    public static void editArrangement(Scanner input, FileHandler filehandler, int selectedID) {
         Arrangement tempArrangement = new Arrangement();
 
-        for (int i = 0; i<= filehandler.getArrangementList().size() -1; i++){
+        for (int i = 0; i<= filehandler.getArrangementList().size() -1; i++) {
             if(filehandler.getArrangementList().get(i).getId() == selectedID){
                 tempArrangement = filehandler.getArrangementList().get(i);
             }
