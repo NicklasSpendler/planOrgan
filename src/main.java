@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class main {
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException {
         Scanner input = new Scanner(System.in);
         FileHandler filehandler = new FileHandler();
 
@@ -18,6 +18,8 @@ public class main {
         filehandler.readEventsFromFile();
         filehandler.readFacilitatorFromFile();
         filehandler.readFirmFromFile();
+
+        mainMenu(input, filehandler);
 
         /*
         filehandler.getEventList().add(addEvent(getFreeEventId(filehandler.getEventList()), "lol", 8, "lol", 1, 1, "mon", 8));
@@ -31,7 +33,7 @@ public class main {
 
          */
 
-        mainMenu(input, filehandler);
+
 
         //Example on how to get customer by ID
         //System.out.println(filehandler.getCustomerByID(1));
@@ -222,7 +224,6 @@ public class main {
     // Deletes firm with chosen ID
     public static void deleteFirm(Scanner input, FileHandler filehandler, int selectedID) {
             for (int i = 0; i <= filehandler.getFirmList().size() - 1; i++) {
-                System.out.println(filehandler.getFirmList().get(i).getCustomerId());
                 if (filehandler.getFirmList().get(i).getCustomerId() == selectedID) {
                     System.out.println("Are you sure? You're deleting: " + filehandler.getFirmList().get(i).getName() + "\nAnswer with: Y/N");
                     String answer = input.next();
@@ -236,7 +237,6 @@ public class main {
 
     public static void deleteEvent(Scanner input, FileHandler filehandler, int selectedID, int arrangementID) {
         for (int i = 0; i <= filehandler.getEventList().size() - 1; i++) {
-            System.out.println(filehandler.getEventList().get(i).getCustomerID());
             if (filehandler.getEventList().get(i).getCustomerID() == selectedID) {
                 System.out.println("Are you sure? You're deleting: " + filehandler.getEventList().get(i).getCustomerID() + "\nType: " + filehandler.getEventList().get(i).getType() + "\nAnswer with: Y/N");
                 String answer = input.next();
@@ -252,7 +252,6 @@ public class main {
 
     public static void deleteFacilitator(Scanner input, FileHandler filehandler, int selectedID) {
         for (int i = 0; i <= filehandler.getFacilitatorList().size() - 1; i++) {
-            System.out.println(filehandler.getFacilitatorList().get(i).getFacilitatorID());
             if (filehandler.getFacilitatorList().get(i).getFacilitatorID() == selectedID) {
                 System.out.println("Are you sure? You're deleting: " + filehandler.getFacilitatorList().get(i).getName() + "\nAnswer with Y/N");
                 String answer = input.next();
@@ -337,6 +336,7 @@ public class main {
             System.out.println("Unknown input - Returning to main menu....");
             showData(input, fileHandler);
         }
+        showPeopleData(input, fileHandler);
     }
 
     public static void editFirm(Scanner input, FileHandler fileHandler, int selectedID){
@@ -389,6 +389,7 @@ public class main {
             showData(input, fileHandler);
         }
 
+        showFirmData(input, fileHandler);
 
        /* fileHandler.getFirmList().set(indexNumber, tempFirm);
         System.out.println("Edited firm: \n" + fileHandler.getFirmList().get(indexNumber)); */
@@ -433,7 +434,7 @@ public class main {
             System.out.println("Unknown input - Returning to main menu....");
             showFacilitatorData(input, fileHandler);
         }
-
+        showFacilitatorData(input, fileHandler);
     }
 
     public static void editEvent(Scanner input, FileHandler filehandler, int selectedID, int arrangementID) {
@@ -485,6 +486,7 @@ public class main {
             mainMenu(input, filehandler);
             //showEventData(input, filehandler);
         }
+        editArrangement(input, filehandler, arrangementID);
     }
 
 
@@ -883,7 +885,7 @@ public class main {
             }
         }
 
-        int newID = 1; // initiate a new variable.
+        int newID = 1; // Initialize a new variable.
 
         // Finds the highest value in the array and adds one to it. Only happens if ids is populated by at least one ID.
         if(ids.size() != 0){ // if the ids Array is populated
